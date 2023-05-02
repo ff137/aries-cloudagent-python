@@ -10,12 +10,12 @@ To see the specifics of the supported endpoints as well as the expected request 
 
 To invoke a specific method:
 
- * scroll to and find that endpoint;
- * click on the endpoint name to expand its section of the UI;
- * click on the Try it out button;
- * fill in any data necessary to run the command;
- * click Execute;
- * check the response to see if the request worked as expected.
+* scroll to and find that endpoint;
+* click on the endpoint name to expand its section of the UI;
+* click on the Try it out button;
+* fill in any data necessary to run the command;
+* click Execute;
+* check the response to see if the request worked as expected.
 
 The mechanical steps are easy, it’s fourth step from the list above that can be tricky. Supplying the right data and, where JSON is involved, getting the syntax correct - braces and quotes can be a pain. When steps don’t work, start your debugging by looking at your JSON. You may also choose to use a REST client like Postman or Insomnia which will provide syntax highlighting and other features to simplify the process.
 
@@ -29,45 +29,45 @@ When ACA-Py is started with the `--webhook-url {URL}` command line parameter, st
 
 When a webhook is dispatched, the record `topic` is appended as a path component to the URL, for example: `https://webhook.host.example` becomes `https://webhook.host.example/topic/connections` when a connection record is updated. A POST request is made to the resulting URL with the body of the request comprised by a serialized JSON object. The full set of properties of the current set of webhook payloads are listed below. Note that empty (null-value) properties are omitted.
 
-#### Pairwise Connection Record Updated (`/connections`)
+### Pairwise Connection Record Updated (`/connections`)
 
- * `connection_id`: the unique connection identifier
- * `state`: `init` / `invitation` / `request` / `response` / `active` / `error` / `inactive`
- * `my_did`: the DID this agent is using in the connection
- * `their_did`: the DID the other agent in the connection is using
- * `their_label`: a connection label provided by the other agent
- * `their_role`: a role assigned to the other agent in the connection
- * `inbound_connection_id`: a connection identifier for the related inbound routing connection
- * `initiator`: `self` / `external` / `multiuse`
- * `invitation_key`: a verification key used to identify the source connection invitation
- * `request_id`: the `@id` property from the connection request message
- * `routing_state`: `none` / `request` / `active` / `error`
- * `accept`: `manual` / `auto`
- * `error_msg`: the most recent error message
- * `invitation_mode`: `once` / `multi`
- * `alias`: a local alias for the connection record
+* `connection_id`: the unique connection identifier
+* `state`: `init` / `invitation` / `request` / `response` / `active` / `error` / `inactive`
+* `my_did`: the DID this agent is using in the connection
+* `their_did`: the DID the other agent in the connection is using
+* `their_label`: a connection label provided by the other agent
+* `their_role`: a role assigned to the other agent in the connection
+* `inbound_connection_id`: a connection identifier for the related inbound routing connection
+* `initiator`: `self` / `external` / `multiuse`
+* `invitation_key`: a verification key used to identify the source connection invitation
+* `request_id`: the `@id` property from the connection request message
+* `routing_state`: `none` / `request` / `active` / `error`
+* `accept`: `manual` / `auto`
+* `error_msg`: the most recent error message
+* `invitation_mode`: `once` / `multi`
+* `alias`: a local alias for the connection record
 
-#### Basic Message Received (`/basicmessages`)
+### Basic Message Received (`/basicmessages`)
 
- * `connection_id`: the identifier of the related pairwise connection
- * `message_id`: the `@id` of the incoming agent message
- * `content`: the contents of the agent message
- * `state`: `received`
+* `connection_id`: the identifier of the related pairwise connection
+* `message_id`: the `@id` of the incoming agent message
+* `content`: the contents of the agent message
+* `state`: `received`
 
-#### Forward Message Received  (`/forward`)
+### Forward Message Received  (`/forward`)
 
 Enable using `--monitor-forward`.
 
- * `connection_id`: the identifier of the connection associated with the recipient key
- * `recipient_key`: the recipient key of the forward message (`to` field of the forward message)
- * `status`: The delivery status of the received forward message. Possible values:
-   * `sent_to_session`: Message is sent directly to the connection over an active transport session
-   * `sent_to_external_queue`: Message is sent to external queue. No information is known on the delivery of the message
-   * `queued_for_delivery`: Message is queued for delivery using outbound transport (recipient connection has an endpoint)
-   * `waiting_for_pickup`: The connection has no reachable endpoint. Need to wait for the recipient to connect with return routing for delivery
-   * `undeliverable`: The connection has no reachable endpoint, and the internal queue for messages is not enabled (`--enable-undelivered-queue`). 
+* `connection_id`: the identifier of the connection associated with the recipient key
+* `recipient_key`: the recipient key of the forward message (`to` field of the forward message)
+* `status`: The delivery status of the received forward message. Possible values:
+  * `sent_to_session`: Message is sent directly to the connection over an active transport session
+  * `sent_to_external_queue`: Message is sent to external queue. No information is known on the delivery of the message
+  * `queued_for_delivery`: Message is queued for delivery using outbound transport (recipient connection has an endpoint)
+  * `waiting_for_pickup`: The connection has no reachable endpoint. Need to wait for the recipient to connect with return routing for delivery
+  * `undeliverable`: The connection has no reachable endpoint, and the internal queue for messages is not enabled (`--enable-undelivered-queue`).
 
-#### Credential Exchange Record Updated (`/issue_credential`)
+### Credential Exchange Record Updated (`/issue_credential`)
 
 * `credential_exchange_id`: the unique identifier of the credential exchange
 * `connection_id`: the identifier of the related pairwise connection
@@ -90,17 +90,17 @@ Enable using `--monitor-forward`.
 
 #### Presentation Exchange Record Updated (`/present_proof`)
 
- * `presentation_exchange_id`: the unique identifier of the presentation exchange
- * `connection_id`: the identifier of the related pairwise connection
- * `thread_id`: the thread ID of the previously received presentation proposal or offer
- * `initiator`: present-proof exchange initiator: `self` / `external`
- * `state`: `proposal_sent` / `proposal_received` / `request_sent` / `request_received` / `presentation_sent` / `presentation_received` / `verified`
- * `presentation_proposal_dict`: the presentation proposal message
- * `presentation_request`: (Indy) presentation request (also known as proof request)
- * `presentation`: (Indy) presentation (also known as proof)
- * `verified`: (string) whether the presentation is verified: `true` or `false`
- * `auto_present`: (boolean) prover choice to auto-present proof as verifier requests
- * `error_msg`: the previous error message
+* `presentation_exchange_id`: the unique identifier of the presentation exchange
+* `connection_id`: the identifier of the related pairwise connection
+* `thread_id`: the thread ID of the previously received presentation proposal or offer
+* `initiator`: present-proof exchange initiator: `self` / `external`
+* `state`: `proposal_sent` / `proposal_received` / `request_sent` / `request_received` / `presentation_sent` / `presentation_received` / `verified`
+* `presentation_proposal_dict`: the presentation proposal message
+* `presentation_request`: (Indy) presentation request (also known as proof request)
+* `presentation`: (Indy) presentation (also known as proof)
+* `verified`: (string) whether the presentation is verified: `true` or `false`
+* `auto_present`: (boolean) prover choice to auto-present proof as verifier requests
+* `error_msg`: the previous error message
 
 ## API Standard Behaviour
 
@@ -114,11 +114,11 @@ API endpoints are defined using [aiohttp_apispec](https://github.com/maximdanilc
 
 The API's should return the following HTTP status:
 
- * HTTP 200 for successful API completion, with appropriate response
- * HTTP 400 (or appropriate 4xx code) (with an error message) for errors on input parameters (i.e. the user can retry with different parameters and potentially get a successful API call)
- * HTTP 404 if a record is expected and not found (generally for GET requests that fetch a single record)
- * HTTP 500 (or appropriate 5xx code) if there is some other processing error (i.e. won't make any difference what parameters the user tries) with an error message
+* HTTP 200 for successful API completion, with appropriate response
+* HTTP 400 (or appropriate 4xx code) (with an error message) for errors on input parameters (i.e. the user can retry with different parameters and potentially get a successful API call)
+* HTTP 404 if a record is expected and not found (generally for GET requests that fetch a single record)
+* HTTP 500 (or appropriate 5xx code) if there is some other processing error (i.e. won't make any difference what parameters the user tries) with an error message
 
 .. and should not return:
 
- * HTTP 500 with a stack trace due to untrapped error (we should handle error conditions with a 400 or 404 response, and catch errors and provide a meaningful error message)
+* HTTP 500 with a stack trace due to untrapped error (we should handle error conditions with a 400 or 404 response, and catch errors and provide a meaningful error message)
