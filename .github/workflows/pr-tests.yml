@@ -12,5 +12,5 @@ jobs:
     name: Tests
     uses: ./.github/workflows/tests.yml
     with:
-      python-version: "3.9"
+      python-version: "3.12"
       os: "ubuntu-latest"
