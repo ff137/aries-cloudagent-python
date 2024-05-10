@@ -1,23 +1,16 @@
 """JSON-LD document loader methods."""
 
-import asyncio
 import concurrent.futures
-
 from typing import Callable
 
 from pydid.did_url import DIDUrl
 from pyld.documentloader import requests
 
-from .document_downloader import StaticCacheJsonLdDownloader
 from ...cache.base import BaseCache
 from ...core.profile import Profile
 from ...resolver.did_resolver import DIDResolver
-
+from .document_downloader import StaticCacheJsonLdDownloader
 from .error import LinkedDataProofException
-
-import nest_asyncio
-
-nest_asyncio.apply()
 
 
 class DocumentLoader:
@@ -38,7 +31,6 @@ class DocumentLoader:
         self.requests_loader = StaticCacheJsonLdDownloader().load
         self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         self.cache_ttl = cache_ttl
-        self._event_loop = asyncio.get_event_loop()
 
     async def _load_did_document(self, did: str, options: dict):
         # Resolver expects plain did without path, query, etc...
@@ -103,13 +95,9 @@ class DocumentLoader:
 
         return document
 
-    def __call__(self, url: str, options: dict):
-        """Load JSON-LD Document."""
-
-        loop = self._event_loop
-        coroutine = self.load_document(url, options)
-        document = loop.run_until_complete(coroutine)
-
+    async def __call__(self, url: str, options: dict):
+        """Load JSON-LD Document asynchronously."""
+        document = await self.load_document(url, options)
         return document
 
 
