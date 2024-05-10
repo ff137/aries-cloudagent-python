@@ -120,15 +120,15 @@ class JsonLdDocumentDownloader:
                     {"url": url},
                     code="loading document failed",
                 )
-            headers = options.get("headers")
-            if headers is None:
-                headers = {"Accept": "application/ld+json, application/json"}
+            headers = options.get(
+                "headers", {"Accept": "application/ld+json, application/json"}
+            )
             headers["User-Agent"] = f"AriesCloudAgent/{__version__}"
             response = requests.get(url, headers=headers, **kwargs)
 
-            content_type = response.headers.get("content-type")
-            if not content_type:
-                content_type = "application/octet-stream"
+            content_type = response.headers.get(
+                "content-type", "application/octet-stream"
+            )
             doc = {
                 "contentType": content_type,
                 "contextUrl": None,
