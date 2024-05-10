@@ -1,4 +1,4 @@
-from unittest.mock import Mock
+from unittest.mock import Mock, AsyncMock
 
 from aries_cloudagent.vc.ld_proofs.document_downloader import (
     StaticCacheJsonLdDownloader,
@@ -15,7 +15,7 @@ async def test_load_cache_hit():
 
 async def test_load_cache_miss_triggers_download():
     downloader = Mock()
-    downloader.download = Mock(return_value=(None, None))
+    downloader.download = AsyncMock(return_value=(None, None))
     context_loader = StaticCacheJsonLdDownloader(document_downloader=downloader)
 
     await context_loader.load("https://www.w3.org/2018/very_unlikely_name/v1")

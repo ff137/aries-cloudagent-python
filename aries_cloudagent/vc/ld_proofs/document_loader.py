@@ -1,6 +1,5 @@
 """JSON-LD document loader methods."""
 
-import concurrent.futures
 from typing import Callable
 
 from pydid.did_url import DIDUrl
@@ -29,7 +28,6 @@ class DocumentLoader:
         self.cache = profile.inject_or(BaseCache)
         self.online_request_loader = requests.requests_document_loader()
         self.requests_loader = StaticCacheJsonLdDownloader().load
-        self.executor = concurrent.futures.ThreadPoolExecutor(max_workers=1)
         self.cache_ttl = cache_ttl
 
     async def _load_did_document(self, did: str, options: dict):
