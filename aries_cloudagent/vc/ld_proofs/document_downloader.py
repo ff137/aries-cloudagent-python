@@ -6,14 +6,15 @@ Allows keeping some context in local filesystem.
 import logging
 import re
 import string
-from typing import Dict, Optional
 import urllib.parse as urllib_parse
 from importlib import resources
-from ...version import __version__
+from typing import Dict, Optional
 
-import requests
+import aiohttp
 from pyld import jsonld
-from pyld.jsonld import JsonLdError, parse_link_header, LINK_HEADER_REL
+from pyld.jsonld import LINK_HEADER_REL, JsonLdError, parse_link_header
+
+from ...version import __version__
 
 logger = logging.getLogger(__name__)
 
@@ -83,10 +84,10 @@ class StaticCacheJsonLdDownloader:
 class JsonLdDocumentDownloader:
     """JsonLd documents downloader."""
 
-    def download(self, url: str, options: Optional[Dict], **kwargs):
-        """Retrieves JSON-LD at the given URL.
+    async def download(self, url: str, options: Optional[Dict], **kwargs):
+        """Retrieves JSON-LD at the given URL asynchronously.
 
-        This was lifted from pyld.documentloader.requests.
+        This was lifted from pyld.documentloader.requests and made async.
 
         :param url: the URL to retrieve.
         :param options:
@@ -124,19 +125,20 @@ class JsonLdDocumentDownloader:
                 "headers", {"Accept": "application/ld+json, application/json"}
             )
             headers["User-Agent"] = f"AriesCloudAgent/{__version__}"
-            response = requests.get(url, headers=headers, **kwargs)
 
-            content_type = response.headers.get(
-                "content-type", "application/octet-stream"
-            )
-            doc = {
-                "contentType": content_type,
-                "contextUrl": None,
-                "documentUrl": response.url,
-                "document": response.json(),
-            }
-
-            return doc, response.headers.get("link")
+            async with aiohttp.ClientSession() as session:
+                async with session.get(url, headers=headers, **kwargs) as response:
+                    response.raise_for_status()  # Will raise an exception for HTTP errors
+                    content_type = response.headers.get(
+                        "content-type", "application/octet-stream"
+                    )
+                    document = {
+                        "contentType": content_type,
+                        "contextUrl": None,
+                        "documentUrl": response.url,
+                        "document": await response.json(),
+                    }
+                    return document, response.headers.get("link")
         except Exception as cause:
             raise JsonLdError(
                 "Could not retrieve a JSON-LD document from the URL.",
