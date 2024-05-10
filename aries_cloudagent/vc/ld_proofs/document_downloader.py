@@ -62,7 +62,7 @@ class StaticCacheJsonLdDownloader:
             for url, filename in StaticCacheJsonLdDownloader.CONTEXT_FILE_MAPPING.items()
         }
 
-    def load(self, url: str, options: Optional[Dict] = None):
+    async def load(self, url: str, options: Optional[Dict] = None):
         """Load a jsonld document from URL.
 
         Prioritize local static cache before attempting to download from the URL.
@@ -74,10 +74,10 @@ class StaticCacheJsonLdDownloader:
             return cached
 
         logger.debug("Context %s not in static cache, resolving from URL.", url)
-        return self._live_load(url, options)
+        return await self._live_load(url, options)
 
-    def _live_load(self, url: str, options: Optional[Dict] = None):
-        doc, link_header = self.documents_downloader.download(url, options)
+    async def _live_load(self, url: str, options: Optional[Dict] = None):
+        doc, link_header = await self.documents_downloader.download(url, options)
         return self.document_parser.parse(doc, link_header)
 
 

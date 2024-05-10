@@ -49,8 +49,8 @@ class DocumentLoader:
 
         return document
 
-    def _load_http_document(self, url: str, options: dict):
-        document = self.requests_loader(url, options)
+    async def _load_http_document(self, url: str, options: dict):
+        document = await self.requests_loader(url, options)
 
         return document
 
@@ -62,7 +62,7 @@ class DocumentLoader:
         if url.startswith("did:"):
             document = await self._load_did_document(url, options)
         elif url.startswith("http://") or url.startswith("https://"):
-            document = self._load_http_document(url, options)
+            document = await self._load_http_document(url, options)
         else:
             raise LinkedDataProofException(
                 "Unrecognized url format. Must start with "
