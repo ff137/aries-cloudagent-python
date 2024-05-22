@@ -657,6 +657,10 @@ async def publish_revocations(request: web.BaseRequest):
     except (RevocationError, StorageError, IndyIssuerError, LedgerError) as err:
         raise web.HTTPBadRequest(reason=err.roll_up) from err
 
+    LOGGER.error("------PUBLISH REVOCATIONS--------")
+    LOGGER.error(f"{create_transaction_for_endorser=}")
+    LOGGER.error(f"{rev_reg_resp=}")
+    LOGGER.error("------PUBLISH REVOCATIONS--------")
     if create_transaction_for_endorser and rev_reg_resp:
         transaction_mgr = TransactionManager(profile)
         try:
