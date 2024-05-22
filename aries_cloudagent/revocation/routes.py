@@ -684,7 +684,7 @@ async def publish_revocations(request: web.BaseRequest):
             await outbound_handler(transaction_request, connection_id=endorser_conn_id)
 
         return web.json_response({"txn": transaction.serialize()})
-    return web.json_response({"rrid2crid": result})
+    return web.json_response({"sent": {"rrid2crid": result}})
 
 
 @docs(tags=["revocation"], summary="Clear pending revocations")
