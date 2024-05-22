@@ -295,7 +295,7 @@ class TestRevocationRoutes(IsolatedAsyncioTestCase):
             await test_module.publish_revocations(self.request)
 
             mock_response.assert_called_once_with(
-                {"rrid2crid": pub_pending.return_value}
+                {"sent": {"rrid2crid": pub_pending.return_value}}
             )
 
     async def test_publish_revocations_x(self):
@@ -330,7 +330,7 @@ class TestRevocationRoutes(IsolatedAsyncioTestCase):
             await test_module.publish_revocations(self.author_request)
 
             mock_response.assert_called_once_with(
-                {"rrid2crid": pub_pending.return_value}
+                {"sent": {"rrid2crid": pub_pending.return_value}}
             )
 
     async def test_publish_revocations_endorser_x(self):
