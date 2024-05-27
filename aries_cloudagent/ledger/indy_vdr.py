@@ -1053,16 +1053,28 @@ class IndyVdrLedger(BaseLedger):
 
         response_value = response["data"]["value"]
         delta_value = {
-            "accum": response_value["accum_to"]["value"]["accum"],
             "issued": response_value.get("issued", []),
             "revoked": response_value.get("revoked", []),
         }
+
+        accum_to = response_value.get("accum_to", {})
+        if accum_to:
+            delta_value["accum"] = accum_to["value"]["accum"]
+        else:
+            delta_value["accum"] = None
+            LOGGER.error("---------------------------------")
+            LOGGER.error("'accum_to' value not found")
+            LOGGER.error("---------------------------------")
+            LOGGER.error(f"Response from ledger: {response}")
+            LOGGER.error(f"Response value: {response_value}")
+            LOGGER.error("---------------------------------")
+
         accum_from = response_value.get("accum_from")
         if accum_from:
             delta_value["prev_accum"] = accum_from["value"]["accum"]
         reg_delta = {"ver": "1.0", "value": delta_value}
         # question - why not response["to"] ?
-        delta_timestamp = response_value["accum_to"]["txnTime"]
+        delta_timestamp = accum_to.get("txnTime")
         if response["data"]["revocRegDefId"] != revoc_reg_id:
             raise LedgerError(
                 "ID of revocation registry response does not match requested ID"
