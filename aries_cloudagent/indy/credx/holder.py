@@ -258,7 +258,7 @@ class IndyCredxHolder(IndyHolder):
             )
             async for row in rows:
                 cred = Credential.load(row.raw_value)
-                result.append(_make_cred_info(row.name, cred))
+                result += (_make_cred_info(row.name, cred),)
         except AskarError as err:
             raise IndyHolderError("Error retrieving credentials") from err
         except CredxError as err:

@@ -226,7 +226,7 @@ class ProtocolRegistry:
                     roles = await ctl_instance.determine_roles(context)
                     if roles:
                         result["roles"] = list(roles)
-            published.append(result)
+            published += (result,)
         return published
 
     def __repr__(self) -> str:

@@ -387,7 +387,7 @@ class IndyPresPreview(BaseModel):
 
             if attr_spec.referent:
                 if attr_spec.referent in attr_specs_names:
-                    attr_specs_names[attr_spec.referent]["names"].append(attr_spec.name)
+                    attr_specs_names[attr_spec.referent]["names"] += (attr_spec.name,)
                 else:
                     attr_specs_names[attr_spec.referent] = {
                         "names": [attr_spec.name],

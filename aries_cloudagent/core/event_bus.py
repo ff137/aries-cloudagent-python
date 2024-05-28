@@ -108,12 +108,12 @@ class EventBus:
                 continue
 
             for subscriber in subscribers:
-                partials.append(
+                partials += (
                     partial(
                         subscriber,
                         profile,
                         event.with_metadata(EventMetadata(pattern, match)),
-                    )
+                    ),
                 )
 
         for processor in partials:
@@ -133,7 +133,7 @@ class EventBus:
         LOGGER.debug("Subscribed: topic %s, processor %s", pattern, processor)
         if pattern not in self.topic_patterns_to_subscribers:
             self.topic_patterns_to_subscribers[pattern] = []
-        self.topic_patterns_to_subscribers[pattern].append(processor)
+        self.topic_patterns_to_subscribers[pattern] += (processor,)
 
     def unsubscribe(self, pattern: Pattern, processor: Callable):
         """Unsubscribe from an event.
@@ -198,4 +198,4 @@ class MockEventBus(EventBus):
 
     async def notify(self, profile: "Profile", event: Event):
         """Append the event to MockEventBus.events."""
-        self.events.append((profile, event))
+        self.events += ((profile, event),)

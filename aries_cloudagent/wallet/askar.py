@@ -313,7 +313,7 @@ class AskarWallet(BaseWallet):
 
         ret = []
         for item in await self._session.handle.fetch_all(CATEGORY_DID):
-            ret.append(self._load_did_entry(item))
+            ret += (self._load_did_entry(item),)
         return ret
 
     async def get_local_did(self, did: str) -> DIDInfo:

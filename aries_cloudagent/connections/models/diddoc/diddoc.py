@@ -226,7 +226,7 @@ class DIDDoc:
                 if (
                     pubkey and pubkey not in rv
                 ):  # perverse case: could specify same key multiple ways; append once
-                    rv.append(pubkey)
+                    rv += (pubkey,)
 
         return rv
 

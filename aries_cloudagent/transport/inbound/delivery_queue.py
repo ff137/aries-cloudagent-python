@@ -81,7 +81,7 @@ class DeliveryQueue:
         for recipient_key in keys:
             if recipient_key not in self.queue_by_key:
                 self.queue_by_key[recipient_key] = []
-            self.queue_by_key[recipient_key].append(wrapped_msg)
+            self.queue_by_key[recipient_key] += (wrapped_msg,)
 
     def has_message_for_key(self, key: str):
         """Check for queued messages by key.

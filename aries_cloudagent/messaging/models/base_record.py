@@ -320,7 +320,7 @@ class BaseRecord(BaseModel):
                 alt=alt,
             ):
                 try:
-                    result.append(cls.from_storage(record.id, vals))
+                    result += (cls.from_storage(record.id, vals),)
                 except BaseModelError as err:
                     raise BaseModelError(f"{err}, for record id {record.id}")
         return result

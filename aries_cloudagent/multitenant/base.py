@@ -439,6 +439,6 @@ class BaseMultitenantManager(ABC):
             wallet = await self._get_wallet_by_key(key)
 
             if wallet:
-                wallets.append(wallet)
+                wallets += (wallet,)
 
         return wallets

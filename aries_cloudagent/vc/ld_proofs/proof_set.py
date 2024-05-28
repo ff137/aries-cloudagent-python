@@ -201,7 +201,7 @@ class ProofSet:
                     reveal_document=reveal_document,
                     document_loader=document_loader,
                 )
-                derived_proof["proof"].append(additional_derived_proof["proof"])
+                derived_proof["proof"] += (additional_derived_proof["proof"],)
 
         JsonLdProcessor.add_value(
             derived_proof["document"], "proof", derived_proof["proof"]
@@ -270,6 +270,6 @@ class ProofSet:
                     )
                     result.proof = proof
 
-                    results.append(result)
+                    results += (result,)
 
         return results

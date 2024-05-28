@@ -385,7 +385,7 @@ class ConnectionManager(BaseConnectionManager):
             my_endpoints = []
             default_endpoint = self.profile.settings.get("default_endpoint")
             if default_endpoint:
-                my_endpoints.append(default_endpoint)
+                my_endpoints += (default_endpoint,)
             my_endpoints.extend(self.profile.settings.get("additional_endpoints", []))
 
         did_doc = await self.create_did_document(
@@ -636,7 +636,7 @@ class ConnectionManager(BaseConnectionManager):
             my_endpoints = []
             default_endpoint = self.profile.settings.get("default_endpoint")
             if default_endpoint:
-                my_endpoints.append(default_endpoint)
+                my_endpoints += (default_endpoint,)
             my_endpoints.extend(self.profile.settings.get("additional_endpoints", []))
 
         did_doc = await self.create_did_document(

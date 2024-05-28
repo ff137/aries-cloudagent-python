@@ -53,9 +53,9 @@ class ProfileSettingsSchema(OpenAPISchema):
 def _get_filtered_settings_dict(wallet_settings: dict):
     """Get filtered settings dict to display."""
     filter_param_list = list(ACAPY_LIFECYCLE_CONFIG_FLAG_ARGS_MAP.values())
-    filter_param_list.append("endorser.author")
-    filter_param_list.append("endorser.endorser")
-    filter_param_list.append("wallet.type")
+    filter_param_list += ("endorser.author",)
+    filter_param_list += ("endorser.endorser",)
+    filter_param_list += ("wallet.type",)
     settings_dict = {}
     for param in filter_param_list:
         if param in wallet_settings:
@@ -173,9 +173,9 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "settings",
             "description": "Agent settings interface.",
-        }
+        },
     )

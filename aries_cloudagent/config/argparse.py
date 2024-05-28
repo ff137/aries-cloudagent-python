@@ -51,7 +51,7 @@ class group:
     def __call__(self, group_cls: ArgumentGroup):
         """Register a class in the given categories."""
         setattr(group_cls, "CATEGORIES", self.categories)
-        self._registered.append((self.categories, group_cls))
+        self._registered += ((self.categories, group_cls),)
         return group_cls
 
     @classmethod
@@ -81,7 +81,7 @@ def load_argument_groups(parser: ArgumentParser, *groups: Type[ArgumentGroup]):
         g_parser = parser.add_argument_group(group.GROUP_NAME)
         inst = group()
         inst.add_arguments(g_parser)
-        group_inst.append(inst)
+        group_inst += (inst,)
 
     def get_settings(args: Namespace):
         settings = {}
@@ -207,7 +207,7 @@ class AdminGroup(ArgumentGroup):
             hook_urls = list(args.webhook_url) if args.webhook_url else []
             hook_url = environ.get("WEBHOOK_URL")
             if hook_url:
-                hook_urls.append(hook_url)
+                hook_urls += (hook_url,)
             settings["admin.webhook_urls"] = hook_urls
 
             settings["admin.admin_client_max_request_size"] = (
@@ -942,7 +942,7 @@ class LedgerGroup(ArgumentGroup):
                         if "id" in txn_config and "pool_name" not in txn_config:
                             txn_config["pool_name"] = txn_config["id"]
                         update_pool_name = True
-                        ledger_config_list.append(txn_config)
+                        ledger_config_list += (txn_config,)
                     if not write_ledger_specified and not args.read_only_ledger:
                         raise ArgsParseError(
                             "No write ledger genesis provided in multi-ledger config"

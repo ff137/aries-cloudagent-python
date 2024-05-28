@@ -277,7 +277,7 @@ class V20PresManager:
                     request_data_pres_exch,
                 )
                 if pres_tuple:
-                    pres_formats.append(pres_tuple)
+                    pres_formats += (pres_tuple,)
                 else:
                     raise V20PresManagerError(
                         "Unable to create presentation. ProblemReport message sent"

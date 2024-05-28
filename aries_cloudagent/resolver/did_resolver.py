@@ -38,7 +38,7 @@ class DIDResolver:
 
     def register_resolver(self, resolver: BaseDIDResolver):
         """Register a new resolver."""
-        self.resolvers.append(resolver)
+        self.resolvers += (resolver,)
 
     async def _resolve(
         self,

@@ -674,6 +674,6 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
-        {"name": "multitenancy", "description": "Multitenant wallet management"}
+    app._state["swagger_dict"]["tags"] += (
+        {"name": "multitenancy", "description": "Multitenant wallet management"},
     )

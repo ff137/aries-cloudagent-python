@@ -145,7 +145,7 @@ class IndyVerifier(ABC, metaclass=ABCMeta):
             )[1]
             async with ledger:
                 cred_def = await ledger.get_credential_definition(cred_def_id)
-            cred_defs.append(cred_def)
+            cred_defs += (cred_def,)
             if ident.get("timestamp"):
                 if not cred_def["value"].get("revocation"):
                     raise ValueError(

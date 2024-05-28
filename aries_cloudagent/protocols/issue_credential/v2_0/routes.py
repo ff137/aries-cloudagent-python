@@ -578,7 +578,7 @@ async def credential_exchange_list(request: web.BaseRequest):
         for cxr in cred_ex_records:
             details = await _get_attached_credentials(profile, cxr)
             result = _format_result_with_details(cxr, details)
-            results.append(result)
+            results += (result,)
 
     except (StorageError, BaseModelError) as err:
         raise web.HTTPBadRequest(reason=err.roll_up) from err
@@ -1785,10 +1785,10 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "issue-credential v2.0",
             "description": "Credential issue v2.0",
             "externalDocs": {"description": "Specification", "url": SPEC_URI},
-        }
+        },
     )

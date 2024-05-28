@@ -493,7 +493,7 @@ async def get_rev_reg_def_upgrade_objs(
         is_active = False
         rev_reg_def_upgrade_obj.askar_issuer_rev_reg_def = askar_issuer_rev_reg_def
 
-        rev_reg_def_upgrade_objs.append(rev_reg_def_upgrade_obj)
+        rev_reg_def_upgrade_objs += (rev_reg_def_upgrade_obj,)
 
         # add the revocation list upgrade object from reg def upgrade object
         rev_list_upgrade_objs.append(
@@ -535,7 +535,7 @@ async def convert_records_to_anoncreds(profile) -> None:
                 cred_def_upgrade_obj.max_cred_num = rev_reg_def_upgrade_objs[
                     0
                 ].rev_reg_def.value.max_cred_num
-            cred_def_upgrade_objs.append(cred_def_upgrade_obj)
+            cred_def_upgrade_objs += (cred_def_upgrade_obj,)
 
         # Link secret
         link_secret_record = None

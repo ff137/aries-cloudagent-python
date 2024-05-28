@@ -228,9 +228,9 @@ class SchemasInputDescriptorFilterSchema(BaseModelSchema):
                 uri_group_list = data.get("oneof_filter")
                 for uri_group in uri_group_list:
                     if isinstance(uri_group, list):
-                        uri_group_list_of_list.append(uri_group)
+                        uri_group_list_of_list += (uri_group,)
                     else:
-                        uri_group_list_of_list.append([uri_group])
+                        uri_group_list_of_list += ([uri_group],)
                 new_data["uri_groups"] = uri_group_list_of_list
         elif isinstance(data, list):
             new_data["oneof_filter"] = False

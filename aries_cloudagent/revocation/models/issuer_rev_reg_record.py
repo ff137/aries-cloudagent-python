@@ -387,7 +387,7 @@ class IssuerRevRegRecord(BaseRecord):
         revoked_ids = []
         for rec in recs:
             if rec.state == IssuerCredRevRecord.STATE_REVOKED:
-                revoked_ids.append(int(rec.cred_rev_id))
+                revoked_ids += (int(rec.cred_rev_id),)
                 if int(rec.cred_rev_id) not in rev_reg_delta["value"]["revoked"]:
                     # await rec.set_state(session, IssuerCredRevRecord.STATE_ISSUED)
                     rec_count += 1
@@ -488,7 +488,7 @@ class IssuerRevRegRecord(BaseRecord):
             cred_rev_id: The credential revocation identifier for credential to revoke
         """
         if cred_rev_id not in self.pending_pub:
-            self.pending_pub.append(cred_rev_id)
+            self.pending_pub += (cred_rev_id,)
             self.pending_pub.sort()
 
         await self.save(session, reason="Marked pending revocation")

@@ -945,7 +945,7 @@ async def get_rev_reg_issued(request: web.BaseRequest):
         recs = await IssuerCredRevRecord.query_by_ids(session, rev_reg_id=rev_reg_id)
     results = []
     for rec in recs:
-        results.append(rec.serialize())
+        results += (rec.serialize(),)
 
     return web.json_response(results)
 
@@ -1884,7 +1884,7 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "revocation",
             "description": "Revocation registry management",
@@ -1895,7 +1895,7 @@ def post_process_routes(app: web.Application):
                     "master/text/0011-cred-revocation"
                 ),
             },
-        }
+        },
     )
 
     # aio_http-apispec polite API only works on schema for JSON objects, not files yet

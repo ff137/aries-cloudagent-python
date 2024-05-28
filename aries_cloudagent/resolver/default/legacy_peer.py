@@ -104,9 +104,9 @@ class LegacyDocCorrections:
             modified = []
             for authn in value["authentication"]:
                 if isinstance(authn, dict) and "publicKey" in authn:
-                    modified.append(authn["publicKey"])
+                    modified += (authn["publicKey"],)
                 else:
-                    modified.append(authn)
+                    modified += (authn,)
                 # TODO more checks?
             value["authentication"] = modified
         return value
@@ -193,18 +193,18 @@ class LegacyDocCorrections:
         value = _make_qualified(value)
         vms = []
         for verification_method in value.get("verificationMethod", []):
-            vms.append(_make_qualified(verification_method))
+            vms += (_make_qualified(verification_method),)
 
         services = []
         for service in value.get("service", []):
-            services.append(_make_qualified(service))
+            services += (_make_qualified(service),)
 
         auths = []
         for authn in value.get("authentication", []):
             if isinstance(authn, dict):
-                auths.append(_make_qualified(authn))
+                auths += (_make_qualified(authn),)
             elif isinstance(authn, str):
-                auths.append(cls.qualified(authn))
+                auths += (cls.qualified(authn),)
             else:
                 raise ValueError("Unexpected authentication value type")
 

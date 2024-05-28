@@ -151,7 +151,7 @@ def explicit_upgrade_required_check(
                 ExplicitUpgradeOption.get(exp_upg_flag)
                 is ExplicitUpgradeOption.LOG_AND_PROCEED
             ):
-                to_skip_versions.append(version)
+                to_skip_versions += (version,)
     return False, to_skip_versions, None
 
 
@@ -175,7 +175,7 @@ def get_upgrade_version_list(
     version_list = []
     for version in sorted_version_list:
         if package_version.parse(version) >= package_version.parse(from_version):
-            version_list.append(version)
+            version_list += (version,)
     return version_list
 
 
@@ -208,9 +208,9 @@ def _get_version_and_name_tags(tags_found_in_config: List) -> Tuple[List, List]:
     for tag in tags_found_in_config:
         try:
             package_version.parse(tag)
-            version_found_in_config.append(tag)
+            version_found_in_config += (tag,)
         except package_version.InvalidVersion:
-            named_tag_found_in_config.append(tag)
+            named_tag_found_in_config += (tag,)
     return version_found_in_config, named_tag_found_in_config
 
 
@@ -321,7 +321,7 @@ async def upgrade(
         context_builder = DefaultContextBuilder(settings)
         context = await context_builder.build_context()
         root_profile, _ = await wallet_config(context)
-    profiles_to_upgrade.append(root_profile)
+    profiles_to_upgrade += (root_profile,)
     base_storage_search_inst = root_profile.inject(BaseStorageSearch)
     if "upgrade.upgrade_all_subwallets" in settings and settings.get(
         "upgrade.upgrade_all_subwallets"
@@ -339,7 +339,7 @@ async def upgrade(
                 wallet_profile = await get_wallet_profile(
                     base_context=root_profile.context, wallet_record=wallet_record
                 )
-                profiles_to_upgrade.append(wallet_profile)
+                profiles_to_upgrade += (wallet_profile,)
         del settings["upgrade.upgrade_all_subwallets"]
     if (
         "upgrade.upgrade_subwallets" in settings
@@ -353,7 +353,7 @@ async def upgrade(
             wallet_profile = await get_wallet_profile(
                 base_context=root_profile.context, wallet_record=wallet_record
             )
-            profiles_to_upgrade.append(wallet_profile)
+            profiles_to_upgrade += (wallet_profile,)
         del settings["upgrade.upgrade_subwallets"]
     for _profile in profiles_to_upgrade:
         await upgrade_per_profile(profile=_profile, settings=settings)
@@ -518,7 +518,7 @@ async def upgrade_per_profile(
                         storage_record.id,
                         json.loads(storage_record.value),
                     )
-                    all_records.append(_record)
+                    all_records += (_record,)
             async with profile.session() as session:
                 for record in all_records:
                     await record.save(
@@ -609,7 +609,7 @@ async def find_affected_issue_rev_reg_records(
                 to_update = True
             params[record_id_name] = record_id
             if to_update:
-                issue_rev_reg_records_to_update.append(IssuerRevRegRecord(**params))
+                issue_rev_reg_records_to_update += (IssuerRevRegRecord(**params),)
         except BaseModelError as err:
             raise BaseModelError(f"{err}, for record id {record.id}")
     return issue_rev_reg_records_to_update

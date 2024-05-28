@@ -249,7 +249,7 @@ class OutboundTransportManager:
         else:
             queued = QueuedOutboundMessage(profile, outbound, target, transport_id)
             queued.retries = self.MAX_RETRY_COUNT
-            self.outbound_new.append(queued)
+            self.outbound_new += (queued,)
             self.process_queued()
 
     async def encode_outbound_message(
@@ -305,7 +305,7 @@ class OutboundTransportManager:
         queued.payload = json.dumps(payload)
         queued.state = QueuedOutboundMessage.STATE_PENDING
         queued.retries = 4 if max_attempts is None else max_attempts - 1
-        self.outbound_new.append(queued)
+        self.outbound_new += (queued,)
         self.process_queued()
 
     def process_queued(self) -> asyncio.Task:
@@ -382,7 +382,7 @@ class OutboundTransportManager:
                         perf_counter=p_time,
                     )
 
-                upd_buffer.append(queued)
+                upd_buffer += (queued,)
 
             new_pending = 0
             new_messages = self.outbound_new
@@ -411,7 +411,7 @@ class OutboundTransportManager:
                 else:
                     new_pending += 1
 
-                upd_buffer.append(queued)
+                upd_buffer += (queued,)
 
             self.outbound_buffer = upd_buffer
             if self.outbound_buffer:

@@ -357,13 +357,13 @@ class AdminServer(BaseAdminServer):
                 return await task
             return await handler(request)
 
-        middlewares.append(setup_context)
+        middlewares += (setup_context,)
 
         # Upgrade middleware needs the context setup
-        middlewares.append(upgrade_middleware)
+        middlewares += (upgrade_middleware,)
 
         # Register validation_middleware last avoiding unauthorized validations
-        middlewares.append(validation_middleware)
+        middlewares += (validation_middleware,)
 
         app = web.Application(
             middlewares=middlewares,
@@ -516,7 +516,7 @@ class AdminServer(BaseAdminServer):
                 "in": "header",
                 "name": "X-API-KEY",
             }
-            security.append({"ApiKeyHeader": []})
+            security += ({"ApiKeyHeader": []},)
         if self.multitenant_manager:
             security_definitions["AuthorizationHeader"] = {
                 "type": "apiKey",
@@ -530,7 +530,7 @@ class AdminServer(BaseAdminServer):
             # If admin api key is also enabled, we need both for subwallet requests
             if self.admin_api_key:
                 multitenant_security["ApiKeyHeader"] = []
-            security.append(multitenant_security)
+            security += (multitenant_security,)
 
         if self.admin_api_key or self.multitenant_manager:
             swagger = app["swagger_dict"]

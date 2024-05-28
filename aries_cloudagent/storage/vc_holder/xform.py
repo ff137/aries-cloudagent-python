@@ -21,15 +21,15 @@ def storage_to_vc_record(record: StorageRecord) -> VCRecord:
     given_id = None
     for tagname, tagval in (record.tags or {}).items():
         if tagname.startswith("ctxt:"):
-            contexts.append(tagname[5:])
+            contexts += (tagname[5:],)
         elif tagname.startswith("type:"):
-            types.append(tagname[5:])
+            types += (tagname[5:],)
         elif tagname.startswith("schm:"):
-            schema_ids.append(tagname[5:])
+            schema_ids += (tagname[5:],)
         elif tagname.startswith("subj:"):
-            subject_ids.append(tagname[5:])
+            subject_ids += (tagname[5:],)
         elif tagname.startswith("ptyp:"):
-            proof_types.append(tagname[5:])
+            proof_types += (tagname[5:],)
         elif tagname == "issuer_id":
             issuer_id = tagval
         elif tagname == "given_id":

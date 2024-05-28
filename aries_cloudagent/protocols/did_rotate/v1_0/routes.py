@@ -115,10 +115,10 @@ def post_process_routes(app: web.Application):
 
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "did-rotate",
             "description": "Rotate a DID",
             "externalDocs": {"description": "Specification", "url": SPEC_URI},
-        }
+        },
     )

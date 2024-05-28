@@ -151,7 +151,7 @@ def ecdh_1pu_encrypt(
                 raise DidcommEnvelopeError("Recipient key types must be consistent")
         else:
             agree_alg = recip_key.algorithm
-        apv.append(kid)
+        apv += (kid,)
     apv.sort()
     apv = b64url(".".join(apv))
 

@@ -91,7 +91,7 @@ class AnonCredsVerifier:
             for spec in pres["identifiers"]
         ):
             pres_req.pop("non_revoked", None)
-            msgs.append(PresVerifyMsg.RMV_GLOBAL_NON_REVOC_INTERVAL.value)
+            msgs += (PresVerifyMsg.RMV_GLOBAL_NON_REVOC_INTERVAL.value,)
             LOGGER.warning(
                 (
                     "Amended presentation request (nonce=%s); removed global "
@@ -133,7 +133,7 @@ class AnonCredsVerifier:
             cred_def_result = await anoncreds_registry.get_credential_definition(
                 profile, cred_def_id
             )
-            cred_defs.append(cred_def_result)
+            cred_defs += (cred_def_result,)
             if ident.get("timestamp"):
                 if not cred_def_result.credential_definition.value.revocation:
                     raise ValueError(
@@ -387,8 +387,8 @@ class AnonCredsVerifier:
         rev_lists = {}
 
         for identifier in identifiers:
-            schema_ids.append(identifier["schema_id"])
-            cred_def_ids.append(identifier["cred_def_id"])
+            schema_ids += (identifier["schema_id"],)
+            cred_def_ids += (identifier["cred_def_id"],)
 
             anoncreds_registry = self.profile.inject(AnonCredsRegistry)
             # Build schemas for anoncreds

@@ -216,21 +216,21 @@ class MockResponder(BaseResponder):
         self, message: Union[BaseMessage, str, bytes], **kwargs
     ) -> OutboundSendStatus:
         """Convert a message to an OutboundMessage and send it."""
-        self.messages.append((message, kwargs))
+        self.messages += ((message, kwargs),)
         return OutboundSendStatus.QUEUED_FOR_DELIVERY
 
     async def send_reply(
         self, message: Union[BaseMessage, str, bytes], **kwargs
     ) -> OutboundSendStatus:
         """Send a reply to an incoming message."""
-        self.messages.append((message, kwargs))
+        self.messages += ((message, kwargs),)
         return OutboundSendStatus.QUEUED_FOR_DELIVERY
 
     async def send_outbound(
         self, message: OutboundMessage, **kwargs
     ) -> OutboundSendStatus:
         """Send an outbound message."""
-        self.messages.append((message, None))
+        self.messages += ((message, None),)
         return OutboundSendStatus.QUEUED_FOR_DELIVERY
 
     async def send_webhook(self, topic: str, payload: dict):

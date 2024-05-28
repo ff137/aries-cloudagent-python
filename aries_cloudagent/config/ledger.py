@@ -109,7 +109,7 @@ async def load_multiple_genesis_transactions_from_config(settings: Settings):
             config_item["endorser_alias"] = config.get("endorser_alias")
         if "endorser_did" in config:
             config_item["endorser_did"] = config.get("endorser_did")
-        ledger_txns_list.append(config_item)
+        ledger_txns_list += (config_item,)
     if (
         not write_ledger_set
         and not settings.get("ledger.read_only")
@@ -200,7 +200,7 @@ async def select_aml_tty(taa_info, provision: bool = False) -> Optional[str]:
     found = []
     for opt in allow_opts:
         if opt in mechanisms:
-            found.append(opt)
+            found += (opt,)
 
     md = markdown.Markdown()
     taa_html = md.convert(taa_info["taa_record"]["text"])
@@ -225,8 +225,8 @@ async def select_aml_tty(taa_info, provision: bool = False) -> Optional[str]:
     num_mechanisms = {}
     for idx, opt in enumerate(found):
         num_mechanisms[str(idx + 1)] = opt
-        opts.append(f" {idx+1}. {allow_opts[opt]}")
-    opts.append(" X. Skip the transaction author agreement")
+        opts += (f" {idx+1}. {allow_opts[opt]}",)
+    opts += (" X. Skip the transaction author agreement",)
     opts_text = "\nPlease select an option:\n" + "\n".join(opts) + "\n[1]> "
 
     while True:

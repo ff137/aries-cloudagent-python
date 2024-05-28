@@ -509,7 +509,7 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "credentials",
             "description": "Holder credential management",
@@ -517,5 +517,5 @@ def post_process_routes(app: web.Application):
                 "description": "Overview",
                 "url": "https://w3c.github.io/vc-data-model/#credentials",
             },
-        }
+        },
     )

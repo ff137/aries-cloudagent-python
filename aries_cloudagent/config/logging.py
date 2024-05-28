@@ -204,9 +204,7 @@ class LoggingConfigurator:
 
         # Set custom file handler
         if log_file:
-            logging.root.handlers.append(
-                logging.FileHandler(log_file, encoding="utf-8")
-            )
+            logging.root.handlers += (logging.FileHandler(log_file, encoding="utf-8"),)
 
         # Set custom log level
         if log_level:
@@ -247,7 +245,7 @@ class LoggingConfigurator:
             timed_file_handler.setFormatter(
                 jsonlogger.JsonFormatter(LOG_FORMAT_FILE_ALIAS_PATTERN)
             )
-            logging.root.handlers.append(timed_file_handler)
+            logging.root.handlers += (timed_file_handler,)
 
         else:
             # Setup context filters for multitenant mode
@@ -673,7 +671,7 @@ class TimedRotatingFileMultiProcessHandler(BaseRotatingHandler):
                 parts = suffix.split(".")
                 for part in parts:
                     if self.extMatch.match(part):
-                        result.append(os.path.join(dir_name, file_name))
+                        result += (os.path.join(dir_name, file_name),)
                         break
         if len(result) < self.backupCount:
             result = []

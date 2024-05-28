@@ -66,7 +66,7 @@ class VerifiablePresentation(BaseModel):
 
     def add_context(self, context: Union[str, dict]):
         """Add a context to this presentation."""
-        self._context.append(context)
+        self._context += (context,)
 
     @property
     def context_urls(self) -> List[str]:
@@ -90,7 +90,7 @@ class VerifiablePresentation(BaseModel):
 
     def add_type(self, type: str):
         """Add a type to this presentation."""
-        self._type.append(type)
+        self._type += (type,)
 
     @property
     def id(self):

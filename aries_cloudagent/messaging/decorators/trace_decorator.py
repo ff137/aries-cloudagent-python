@@ -209,7 +209,7 @@ class TraceDecorator(BaseModel):
         """Append a trace report to this decorator."""
         if not self._trace_reports:
             self._trace_reports = []
-        self._trace_reports.append(trace_report)
+        self._trace_reports += (trace_report,)
 
 
 class TraceReportSchema(BaseModelSchema):

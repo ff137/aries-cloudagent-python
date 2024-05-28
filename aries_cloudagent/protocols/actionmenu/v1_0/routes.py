@@ -259,6 +259,6 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
-        {"name": "action-menu", "description": "Menu interaction over connection"}
+    app._state["swagger_dict"]["tags"] += (
+        {"name": "action-menu", "description": "Menu interaction over connection"},
     )

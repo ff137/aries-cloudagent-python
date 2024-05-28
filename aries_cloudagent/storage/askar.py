@@ -181,13 +181,13 @@ class AskarStorage(BaseStorage):
         for row in await self._session.handle.fetch_all(
             type_filter, tag_query, for_update=for_update
         ):
-            results.append(
+            results += (
                 StorageRecord(
                     type=row.category,
                     id=row.name,
                     value=None if row.value is None else row.value.decode("utf-8"),
                     tags=row.tags,
-                )
+                ),
             )
         return results
 
@@ -336,13 +336,13 @@ class AskarStorageSearchSession(BaseStorageSearchSession):
             except StopAsyncIteration:
                 break
 
-            ret.append(
+            ret += (
                 StorageRecord(
                     type=row.category,
                     id=row.name,
                     value=None if row.value is None else row.value.decode("utf-8"),
                     tags=row.tags,
-                )
+                ),
             )
             count += 1
 

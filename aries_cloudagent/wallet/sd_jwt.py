@@ -77,7 +77,7 @@ def create_json_paths(it, current_path="", path_list=None) -> List:
         for k, v in it.items():
             if not k.startswith(tuple(CLAIMS_NEVER_SD)):
                 new_key = f"{current_path}.{k}" if current_path else k
-                path_list.append(new_key)
+                path_list += (new_key,)
 
                 if isinstance(v, dict):
                     create_json_paths(v, new_key, path_list)
@@ -86,13 +86,13 @@ def create_json_paths(it, current_path="", path_list=None) -> List:
                         if isinstance(e, (dict, list)):
                             create_json_paths(e, f"{new_key}[{i}]", path_list)
                         else:
-                            path_list.append(f"{new_key}[{i}]")
+                            path_list += (f"{new_key}[{i}]",)
     elif isinstance(it, list):
         for i, e in enumerate(it):
             if isinstance(e, (dict, list)):
                 create_json_paths(e, f"{current_path}[{i}]", path_list)
             else:
-                path_list.append(f"{current_path}[{i}]")
+                path_list += (f"{current_path}[{i}]",)
 
     return path_list
 
@@ -119,7 +119,7 @@ def separate_list_splices(non_sd_list) -> List:
         if ":" in item:
             split = re.split(r"\[|\]|:", item)
             for i in range(int(split[1]), int(split[2])):
-                non_sd_list.append(f"{split[0]}[{i}]")
+                non_sd_list += (f"{split[0]}[{i}]",)
             non_sd_list.remove(item)
 
     return non_sd_list
@@ -161,7 +161,7 @@ async def sd_jwt_sign(
             for match in matches:
                 if isinstance(match.context.value, list):
                     match.context.value.remove(match.value)
-                    match.context.value.append(SDObj(match.value))
+                    match.context.value += (SDObj(match.value),)
                 else:
                     match.context.value[SDObj(str(match.path))] = (
                         match.context.value.pop(str(match.path))

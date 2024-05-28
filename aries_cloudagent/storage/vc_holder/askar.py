@@ -31,7 +31,7 @@ class AskarVCHolder(VCHolder):
             if type_or_schema_query:
                 if "$and" not in type_or_schema_query:
                     type_or_schema_query = {"$and": [type_or_schema_query]}
-                type_or_schema_query["$and"].append(q)
+                type_or_schema_query["$and"] += (q,)
             else:
                 type_or_schema_query = q
         return type_or_schema_query
@@ -115,9 +115,9 @@ class AskarVCHolder(VCHolder):
             if vals is None:
                 pass
             elif len(vals) > 1:
-                query.append({"$or": [{k: v for v in vals}]})
+                query += ({"$or": [{k: v for v in vals}]},)
             else:
-                query.append({k: vals[0]})
+                query += ({k: vals[0]},)
 
         def _make_custom_query(query):
             result = {}
@@ -137,13 +137,13 @@ class AskarVCHolder(VCHolder):
         _match_any(query, "subject", subject_ids)
         _match_any(query, "proof_type", proof_types)
         if issuer_id:
-            query.append({"issuer_id": issuer_id})
+            query += ({"issuer_id": issuer_id},)
         if given_id:
-            query.append({"given_id": given_id})
+            query += ({"given_id": given_id},)
         if tag_query:
-            query.append(_make_custom_query(tag_query))
+            query += (_make_custom_query(tag_query),)
         if pd_uri_list:
-            query.append(self.build_type_or_schema_query(pd_uri_list))
+            query += (self.build_type_or_schema_query(pd_uri_list),)
         query = {"$and": query} if query else None
         search = AskarStorageSearch(self._profile).search_records(
             VC_CRED_RECORD_TYPE, query

@@ -43,9 +43,9 @@ class AnonCredsRegistry:
     def register(self, registry: BaseAnonCredsHandler):
         """Register a new registry."""
         if isinstance(registry, BaseAnonCredsResolver):
-            self.resolvers.append(registry)
+            self.resolvers += (registry,)
         if isinstance(registry, BaseAnonCredsRegistrar):
-            self.registrars.append(registry)
+            self.registrars += (registry,)
 
     async def _resolver_for_identifier(self, identifier: str) -> BaseAnonCredsResolver:
         resolvers = [

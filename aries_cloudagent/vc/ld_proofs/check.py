@@ -76,10 +76,10 @@ def diff_dict_keys(
                 if len(expanded) == 1 and list(expanded.keys())[0] in with_missing:
                     key_in_with_missing = list(expanded.keys())[0]
                 else:
-                    missing.append(_prefix)
+                    missing += (_prefix,)
                     continue
             else:
-                missing.append(_prefix)
+                missing += (_prefix,)
                 continue
 
         # If the key is present, but is a dict itself, recursively check nested keys

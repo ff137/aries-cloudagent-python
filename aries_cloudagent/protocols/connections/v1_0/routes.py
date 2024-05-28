@@ -921,10 +921,10 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "connection",
             "description": "Connection management",
             "externalDocs": {"description": "Specification", "url": SPEC_URI},
-        }
+        },
     )

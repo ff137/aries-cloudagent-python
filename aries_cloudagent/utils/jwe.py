@@ -234,7 +234,7 @@ class JweEnvelope:
 
     def add_recipient(self, recip: JweRecipient):
         """Add a recipient to the JWE envelope."""
-        self._recipients.append(recip)
+        self._recipients += (recip,)
 
     def set_protected(
         self,

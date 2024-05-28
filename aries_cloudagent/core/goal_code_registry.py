@@ -26,7 +26,7 @@ class GoalCodeRegistry:
                 goal_codes_to_add = ctl_inst.determine_goal_codes()
                 for goal_code in goal_codes_to_add:
                     if goal_code not in self.goal_codes:
-                        self.goal_codes.append(goal_code)
+                        self.goal_codes += (goal_code,)
 
     def goal_codes_matching_query(self, query: str) -> Sequence[str]:
         """Return a list of goal codes matching a query string."""

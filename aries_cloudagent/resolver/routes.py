@@ -90,7 +90,7 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "resolver",
             "description": "did resolver interface.",
@@ -98,5 +98,5 @@ def post_process_routes(app: web.Application):
                 "description": "DID Resolution Specification",
                 "url": "https://www.w3.org/TR/did-core/#resolution",
             },
-        }
+        },
     )

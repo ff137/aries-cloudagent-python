@@ -63,7 +63,7 @@ class ClassProvider(BaseProvider):
                 arg = arg()
                 if arg is None:
                     raise InjectionError("Weakref instance expired")
-            args.append(arg)
+            args += (arg,)
         kwargs = {}
         for arg_name, arg in self._ctor_kwargs.items():
             if isinstance(arg, ClassProvider.Inject):

@@ -13,17 +13,17 @@ class StatsTracer(aiohttp.TraceConfig):
         super().__init__()
         self.collector = collector
         self.prefix = prefix
-        self.on_request_start.append(self.request_start)
-        self.on_connection_queued_start.append(self.connection_queued_start)
-        self.on_connection_queued_end.append(self.connection_queued_end)
-        self.on_dns_resolvehost_start.append(self.dns_resolvehost_start)
-        self.on_dns_resolvehost_end.append(self.dns_resolvehost_end)
-        self.on_connection_create_start.append(self.socket_connect_start)
-        self.on_dns_cache_hit.append(self.socket_connect_start)  # restart timer
-        self.on_dns_cache_miss.append(self.socket_connect_start)  # restart timer
-        self.on_connection_reuseconn.append(self.connection_ready)
-        self.on_connection_create_end.append(self.connection_ready)
-        self.on_request_end.append(self.request_end)
+        self.on_request_start += (self.request_start,)
+        self.on_connection_queued_start += (self.connection_queued_start,)
+        self.on_connection_queued_end += (self.connection_queued_end,)
+        self.on_dns_resolvehost_start += (self.dns_resolvehost_start,)
+        self.on_dns_resolvehost_end += (self.dns_resolvehost_end,)
+        self.on_connection_create_start += (self.socket_connect_start,)
+        self.on_dns_cache_hit += (self.socket_connect_start,)  # restart timer
+        self.on_dns_cache_miss += (self.socket_connect_start,)  # restart timer
+        self.on_connection_reuseconn += (self.connection_ready,)
+        self.on_connection_create_end += (self.connection_ready,)
+        self.on_request_end += (self.request_end,)
 
     async def request_start(self, session, context, params):
         """Handle the start of a request."""

@@ -454,7 +454,7 @@ class InvitationCreator:
             my_endpoints = []
             default_endpoint = self.profile.settings.get("default_endpoint")
             if default_endpoint:
-                my_endpoints.append(default_endpoint)
+                my_endpoints += (default_endpoint,)
             my_endpoints.extend(self.profile.settings.get("additional_endpoints", []))
 
         did_peer_4 = self.use_did_method == "did:peer:4"

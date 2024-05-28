@@ -585,7 +585,7 @@ class V20CredManager:
             await issue_format.handler(self.profile).receive_credential(
                 cred_ex_record, cred_issue_message
             )
-            handled_formats.append(issue_format)
+            handled_formats += (issue_format,)
 
         if len(handled_formats) == 0:
             raise V20CredManagerError("No supported credential formats received.")

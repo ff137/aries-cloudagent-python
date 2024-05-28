@@ -280,7 +280,7 @@ class RevocationManager:
                 remaining = await revoc.get_pending_revocations(rrid)
                 if remaining:
                     result[rrid] = remaining
-                notify.append(rrid)
+                notify += (rrid,)
             await txn.commit()
 
         for rrid in notify:

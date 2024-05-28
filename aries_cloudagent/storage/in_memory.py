@@ -112,7 +112,7 @@ class InMemoryStorage(BaseStorage, BaseStorageSearch):
         results = []
         for record in self.profile.records.values():
             if record.type == type_filter and tag_query_match(record.tags, tag_query):
-                results.append(record)
+                results += (record,)
         return results
 
     async def delete_all_records(
@@ -124,7 +124,7 @@ class InMemoryStorage(BaseStorage, BaseStorageSearch):
         ids = []
         for record_id, record in self.profile.records.items():
             if record.type == type_filter and tag_query_match(record.tags, tag_query):
-                ids.append(record_id)
+                ids += (record_id,)
         for record_id in ids:
             del self.profile.records[record_id]
 
@@ -287,7 +287,7 @@ class InMemoryStorageSearch(BaseStorageSearchSession):
             if record.type == check_type and tag_query_match(
                 record.tags, self.tag_query
             ):
-                ret.append(record)
+                ret += (record,)
                 i -= 1
 
         if not ret:

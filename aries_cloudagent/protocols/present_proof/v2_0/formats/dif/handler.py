@@ -198,7 +198,7 @@ class DIFPresFormatHandler(V20PresFormatHandler):
                             else:
                                 required = schema_uri.required
                             if required:
-                                uri_list.append(schema_uri.uri)
+                                uri_list += (schema_uri.uri,)
                 if len(uri_list) == 0:
                     uri_list = None
                 if len(one_of_uri_groups) == 0:
@@ -383,7 +383,7 @@ class DIFPresFormatHandler(V20PresFormatHandler):
         to_add = []
         for vc_record in vc_records:
             if vc_record.record_id not in record_ids:
-                to_add.append(vc_record)
+                to_add += (vc_record,)
                 record_ids.add(vc_record.record_id)
         return (to_add, record_ids)
 
@@ -395,9 +395,9 @@ class DIFPresFormatHandler(V20PresFormatHandler):
         for schema_group in schema_uri_groups:
             uri_list = []
             for schema in schema_group:
-                uri_list.append(schema.uri)
+                uri_list += (schema.uri,)
             if len(uri_list) > 0:
-                group_schema_uri_list.append(uri_list)
+                group_schema_uri_list += (uri_list,)
         return group_schema_uri_list
 
     async def receive_pres(self, message: V20Pres, pres_ex_record: V20PresExRecord):

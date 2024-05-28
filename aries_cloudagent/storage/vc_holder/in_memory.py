@@ -26,9 +26,9 @@ class InMemoryVCHolder(VCHolder):
         type_or_schema_query = {"$and": []}
         for uri in uri_list:
             tag_or_list = []
-            tag_or_list.append({f"type:{uri}": "1"})
-            tag_or_list.append({f"schm:{uri}": "1"})
-            type_or_schema_query["$and"].append({"$or": tag_or_list})
+            tag_or_list += ({f"type:{uri}": "1"},)
+            tag_or_list += ({f"schm:{uri}": "1"},)
+            type_or_schema_query["$and"] += ({"$or": tag_or_list},)
         return type_or_schema_query
 
     async def store_credential(self, cred: VCRecord):

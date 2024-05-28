@@ -86,7 +86,7 @@ class VerifiableCredential(BaseModel):
 
     def add_context(self, context: Union[str, dict]):
         """Add a context to this credential."""
-        self._context.append(context)
+        self._context += (context,)
 
     @property
     def context_urls(self) -> List[str]:
@@ -110,7 +110,7 @@ class VerifiableCredential(BaseModel):
 
     def add_type(self, type: str):
         """Add a type to this credential."""
-        self._type.append(type)
+        self._type += (type,)
 
     @property
     def id(self):

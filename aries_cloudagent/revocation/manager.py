@@ -343,7 +343,7 @@ class RevocationManager:
                 rrid = issuer_rr_rec.revoc_reg_id
                 await issuer_rr_rec.clear_pending(txn, (purge or {}).get(rrid))
                 result[rrid] = issuer_rr_rec.pending_pub
-                notify.append(rrid)
+                notify += (rrid,)
             await txn.commit()
 
         for rrid in notify:

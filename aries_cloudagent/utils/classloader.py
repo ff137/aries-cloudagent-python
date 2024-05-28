@@ -176,7 +176,7 @@ class ClassLoader:
         sub_path = package_path / sub_pkg
         for item in sub_path.iterdir():
             if (item / "__init__.py").exists():
-                found.append(f"{package}.{joiner}{item.name}")
+                found += (f"{package}.{joiner}{item.name}",)
         return found
 
 

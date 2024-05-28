@@ -470,7 +470,7 @@ async def wallet_did_list(request: web.BaseRequest):
                 and (not filter_method or public_did_info.method == filter_method)
                 and (not filter_key_type or public_did_info.key_type == filter_key_type)
             ):
-                results.append(format_did_info(public_did_info))
+                results += (format_did_info(public_did_info),)
         elif filter_posture is DIDPosture.POSTED:
             results = []
             posted_did_infos = await wallet.get_posted_dids()
@@ -481,7 +481,7 @@ async def wallet_did_list(request: web.BaseRequest):
                     and (not filter_method or info.method == filter_method)
                     and (not filter_key_type or info.key_type == filter_key_type)
                 ):
-                    results.append(format_did_info(info))
+                    results += (format_did_info(info),)
         elif filter_did:
             try:
                 info = await wallet.get_local_did(filter_did)
@@ -501,7 +501,7 @@ async def wallet_did_list(request: web.BaseRequest):
                     )
                 )
             ):
-                results.append(format_did_info(info))
+                results += (format_did_info(info),)
         elif filter_verkey:
             try:
                 info = await wallet.get_local_did_for_verkey(filter_verkey)
@@ -519,7 +519,7 @@ async def wallet_did_list(request: web.BaseRequest):
                     )
                 )
             ):
-                results.append(format_did_info(info))
+                results += (format_did_info(info),)
         else:
             dids = await wallet.get_local_dids()
             results = [
@@ -626,7 +626,7 @@ async def wallet_create_did(request: web.BaseRequest):
                 else:
                     default_endpoint = context.profile.settings.get("default_endpoint")
                     if default_endpoint:
-                        my_endpoints.append(default_endpoint)
+                        my_endpoints += (default_endpoint,)
                     my_endpoints.extend(
                         context.profile.settings.get("additional_endpoints", [])
                     )
@@ -1433,7 +1433,7 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "wallet",
             "description": "DID and tag policy management",
@@ -1444,9 +1444,9 @@ def post_process_routes(app: web.Application):
                     "master/docs/design/003-wallet-storage"
                 ),
             },
-        }
+        },
     )
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "anoncreds - wallet upgrade",
             "description": "Anoncreds wallet upgrade",
@@ -1454,5 +1454,5 @@ def post_process_routes(app: web.Application):
                 "description": "Specification",
                 "url": "https://hyperledger.github.io/anoncreds-spec",
             },
-        }
+        },
     )

@@ -291,7 +291,7 @@ class MediationManager:
             else:
                 result.result = KeylistUpdated.RESULT_CLIENT_ERROR
 
-            updated.append(result)
+            updated += (result,)
 
         return KeylistUpdateResponse(updated=updated)
 
@@ -514,8 +514,8 @@ class MediationManager:
 
         """
         message = message or KeylistUpdate()
-        message.updates.append(
-            KeylistUpdateRule(recipient_key, KeylistUpdateRule.RULE_ADD)
+        message.updates += (
+            KeylistUpdateRule(recipient_key, KeylistUpdateRule.RULE_ADD),
         )
         return message
 
@@ -533,8 +533,8 @@ class MediationManager:
 
         """
         message = message or KeylistUpdate()
-        message.updates.append(
-            KeylistUpdateRule(recipient_key, KeylistUpdateRule.RULE_REMOVE)
+        message.updates += (
+            KeylistUpdateRule(recipient_key, KeylistUpdateRule.RULE_REMOVE),
         )
         return message
 
@@ -580,7 +580,7 @@ class MediationManager:
                             recipient_key=updated.recipient_key,
                             connection_id=connection_id,
                         )
-                    to_save.append(record)
+                    to_save += (record,)
                 elif updated.action == KeylistUpdateRule.RULE_REMOVE:
                     try:
                         records = await RouteRecord.query(
@@ -603,7 +603,7 @@ class MediationManager:
                                 "while processing keylist update response"
                             )
                         record = records[0]
-                        to_remove.append(record)
+                        to_remove += (record,)
 
             for record_for_saving in to_save:
                 await record_for_saving.save(

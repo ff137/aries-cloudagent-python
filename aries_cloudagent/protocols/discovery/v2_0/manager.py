@@ -163,7 +163,7 @@ class V20DiscoveryMgr:
                         continue
                     if "roles" in result:
                         to_publish_result["roles"] = result.get("roles")
-                    published_results.append(to_publish_result)
+                    published_results += (to_publish_result,)
             elif query_item.feature_type == "goal-code":
                 results = await self.execute_goal_code_query(query_item.match)
                 for result in results:
@@ -171,7 +171,7 @@ class V20DiscoveryMgr:
                     if to_publish_goal_codes and result not in to_publish_goal_codes:
                         continue
                     to_publish_result["id"] = result
-                    published_results.append(to_publish_result)
+                    published_results += (to_publish_result,)
         disclosures.disclosures = published_results
         # Check if query message has a thid
         # If disclosing this agents feature
@@ -205,9 +205,9 @@ class V20DiscoveryMgr:
                 "At least one protocol or goal-code feature-type query is required."
             )
         if query_protocol:
-            queries.append(QueryItem(feature_type="protocol", match=query_protocol))
+            queries += (QueryItem(feature_type="protocol", match=query_protocol),)
         if query_goal_code:
-            queries.append(QueryItem(feature_type="goal-code", match=query_goal_code))
+            queries += (QueryItem(feature_type="goal-code", match=query_goal_code),)
         queries_msg = Queries(queries=queries)
         if connection_id:
             async with self._profile.session() as session:

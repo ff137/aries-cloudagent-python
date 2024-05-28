@@ -247,7 +247,7 @@ class TaskQueue:
         """
         if self.timed and not pending.queued_time:
             pending.queued_time = time.perf_counter()
-        self.pending_tasks.append(pending)
+        self.pending_tasks += (pending,)
         self.drain()
 
     def add_active(
@@ -265,7 +265,7 @@ class TaskQueue:
             ident: A string identifier for the task
             timing: An optional dictionary of timing information
         """
-        self.active_tasks.append(task)
+        self.active_tasks += (task,)
         task.add_done_callback(
             lambda fut: self.completed_task(task, task_complete, ident, timing)
         )

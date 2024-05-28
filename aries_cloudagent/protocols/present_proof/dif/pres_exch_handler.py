@@ -204,11 +204,11 @@ class DIFPresExchHandler:
                             did_info = await self._did_info_for_did(cred_subject_id)
                             if did_info.key_type == reqd_key_type:
                                 issuer_id = cred_subject_id
-                                filtered_creds_list.append(cred.cred_value)
+                                filtered_creds_list += (cred.cred_value,)
                                 break
                 else:
                     if issuer_id in cred.subject_ids:
-                        filtered_creds_list.append(cred.cred_value)
+                        filtered_creds_list += (cred.cred_value,)
                     else:
                         raise DIFPresExchError(
                             "Applicable credentials have different credentialSubject.id, "
@@ -236,7 +236,7 @@ class DIFPresExchHandler:
             if sr._from != "":
                 for descriptor in descriptors:
                     if self.contains(descriptor.groups, sr._from):
-                        input_descriptors.append(descriptor)
+                        input_descriptors += (descriptor,)
                 total_count = len(input_descriptors)
                 if total_count == 0:
                     raise DIFPresExchError(f"No descriptors for from: {sr._from}")
@@ -247,7 +247,7 @@ class DIFPresExchHandler:
                     requirement = await self.to_requirement(
                         submission_requirement, descriptors
                     )
-                    nested.append(requirement)
+                    nested += (requirement,)
                 except Exception as err:
                     raise DIFPresExchError(
                         (
@@ -410,7 +410,7 @@ class DIFPresExchHandler:
                     document_loader=document_loader,
                 )
                 credential = self.create_vcrecord(signed_new_credential_dict)
-            result.append(credential)
+            result += (credential,)
         return result
 
     def field_ids_for_is_holder(self, constraints: Constraints) -> Sequence[str]:
@@ -1009,7 +1009,7 @@ class DIFPresExchHandler:
                 credential=credential, filter=schemas.uri_groups
             )
             if applicable:
-                result.append(credential)
+                result += (credential,)
         return result
 
     def credential_match_schema(self, credential: VCRecord, schema_id: str) -> bool:
@@ -1037,7 +1037,7 @@ class DIFPresExchHandler:
         filtered_cred = []
         for credential in credentials:
             if credential.record_id in records_list:
-                filtered_cred.append(credential)
+                filtered_cred += (credential,)
         return filtered_cred
 
     async def apply_requirements(
@@ -1119,7 +1119,7 @@ class DIFPresExchHandler:
                             ] = {}
 
                 if len(result.keys()) != 0:
-                    nested_result.append(result)
+                    nested_result += (result,)
 
         exclude = {}
         for uid in cred_uid_descriptors.keys():
@@ -1183,14 +1183,14 @@ class DIFPresExchHandler:
                     for credential in result[key]:
                         cred_id = credential.given_id or credential.record_id
                         if cred_id and cred_id not in uid_dict:
-                            merged_credentials.append(credential)
+                            merged_credentials += (credential,)
                             uid_dict[cred_id] = {}
 
                 for credential in credentials:
                     cred_id = credential.given_id or credential.record_id
                     if cred_id and cred_id not in uid_dict:
                         if (key + cred_id) not in exclude:
-                            merged_credentials.append(credential)
+                            merged_credentials += (credential,)
                             uid_dict[cred_id] = {}
                 result[key] = merged_credentials
         return result
@@ -1223,19 +1223,19 @@ class DIFPresExchHandler:
                     credentials=credentials,
                     records_filter=records_filter,
                 )
-                result.append(res)
+                result += (res,)
         else:
             res = await self.apply_requirements(
                 req=req, credentials=credentials, records_filter=records_filter
             )
-            result.append(res)
+            result += (res,)
 
         result_vp = []
         for res in result:
             applicable_creds, descriptor_maps = await self.merge(res)
             applicable_creds_list = []
             for credential in applicable_creds:
-                applicable_creds_list.append(credential.cred_value)
+                applicable_creds_list += (credential.cred_value,)
             if (
                 not self.profile.settings.get("debug.auto_respond_presentation_request")
                 and not records_filter
@@ -1262,8 +1262,8 @@ class DIFPresExchHandler:
                     vp = await create_presentation(credentials=applicable_creds_list)
                     vp["presentation_submission"] = submission_property.serialize()
                     if self.proof_type is BbsBlsSignature2020.signature_type:
-                        vp["@context"].append(SECURITY_CONTEXT_BBS_URL)
-                    result_vp.append(vp)
+                        vp["@context"] += (SECURITY_CONTEXT_BBS_URL,)
+                    result_vp += (vp,)
                     continue
                 else:
                     vp = await create_presentation(credentials=filtered_creds_list)
@@ -1281,8 +1281,8 @@ class DIFPresExchHandler:
                         )
                         vp["presentation_submission"] = submission_property.serialize()
                         if self.proof_type is BbsBlsSignature2020.signature_type:
-                            vp["@context"].append(SECURITY_CONTEXT_BBS_URL)
-                        result_vp.append(vp)
+                            vp["@context"] += (SECURITY_CONTEXT_BBS_URL,)
+                        result_vp += (vp,)
                         continue
                     else:
                         vp = await create_presentation(credentials=filtered_creds_list)
@@ -1291,7 +1291,7 @@ class DIFPresExchHandler:
                     vp = await create_presentation(credentials=applicable_creds_list)
             vp["presentation_submission"] = submission_property.serialize()
             if self.proof_type is BbsBlsSignature2020.signature_type:
-                vp["@context"].append(SECURITY_CONTEXT_BBS_URL)
+                vp["@context"] += (SECURITY_CONTEXT_BBS_URL,)
             issue_suite = await self._get_issue_suite(
                 issuer_id=issuer_id,
             )
@@ -1301,7 +1301,7 @@ class DIFPresExchHandler:
                 challenge=challenge,
                 document_loader=document_loader,
             )
-            result_vp.append(signed_vp)
+            result_vp += (signed_vp,)
         if len(result_vp) == 1:
             return result_vp[0]
         return result_vp
@@ -1339,7 +1339,7 @@ class DIFPresExchHandler:
                 cred_id = cred.given_id or cred.record_id
                 if cred_id:
                     if cred_id not in dict_of_creds:
-                        result.append(cred)
+                        result += (cred,)
                         dict_of_creds[cred_id] = len(descriptors)
                     if f"{cred_id}-{cred_id}" not in dict_of_descriptors:
                         descriptor_map = InputDescriptorMapping(
@@ -1347,7 +1347,7 @@ class DIFPresExchHandler:
                             fmt="ldp_vc",
                             path=(f"$.verifiableCredential[{dict_of_creds[cred_id]}]"),
                         )
-                        descriptors.append(descriptor_map)
+                        descriptors += (descriptor_map,)
 
         descriptors = sorted(descriptors, key=lambda i: i.id)
         return (result, descriptors)
@@ -1438,7 +1438,7 @@ class DIFPresExchHandler:
             jsonpath = parse(path)
             match = jsonpath.find(cred_dict)
             if len(match) > 0:
-                applied_field_paths.append(path)
+                applied_field_paths += (path,)
         return applied_field_paths
 
     async def apply_constraint_received_cred(
@@ -1535,11 +1535,11 @@ class DIFPresExchHandler:
         if isinstance(match_item, dict):
             for key in match_item.keys():
                 if key in mandatory_paths:
-                    additional_attrs.append(key)
+                    additional_attrs += (key,)
         elif isinstance(match_item, list):
             for key in match_item[0].keys():
                 if key in mandatory_paths:
-                    additional_attrs.append(key)
+                    additional_attrs += (key,)
         return additional_attrs
 
     async def get_updated_field(self, field: DIFField, cred: dict) -> DIFField:
@@ -1577,7 +1577,7 @@ class DIFPresExchHandler:
         if len(match) > 1:
             return_list = []
             for match_item in match:
-                return_list.append(match_item.value)
+                return_list += (match_item.value,)
             return return_list
         else:
             return match[0].value

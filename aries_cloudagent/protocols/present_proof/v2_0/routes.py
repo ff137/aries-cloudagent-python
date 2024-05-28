@@ -405,11 +405,9 @@ def _formats_attach(by_format: Mapping, msg_type: str, spec: str) -> Mapping:
     attach = []
     for fmt_api, item_by_fmt in by_format.items():
         if fmt_api == V20PresFormat.Format.INDY.api:
-            attach.append(
-                AttachDecorator.data_base64(mapping=item_by_fmt, ident=fmt_api)
-            )
+            attach += (AttachDecorator.data_base64(mapping=item_by_fmt, ident=fmt_api),)
         elif fmt_api == V20PresFormat.Format.DIF.api:
-            attach.append(AttachDecorator.data_json(mapping=item_by_fmt, ident=fmt_api))
+            attach += (AttachDecorator.data_json(mapping=item_by_fmt, ident=fmt_api),)
     return {
         "formats": [
             V20PresFormat(
@@ -603,7 +601,7 @@ async def present_proof_credentials_list(request: web.BaseRequest):
                 claim_fmt = ClaimFormat.deserialize(claim_fmt)
             input_descriptors = []
             for input_desc_dict in input_descriptors_list:
-                input_descriptors.append(InputDescriptors.deserialize(input_desc_dict))
+                input_descriptors += (InputDescriptors.deserialize(input_desc_dict),)
             record_ids = set()
             for input_descriptor in input_descriptors:
                 proof_type = None
@@ -625,7 +623,7 @@ async def present_proof_credentials_list(request: web.BaseRequest):
                             else:
                                 required = schema_uri.required
                             if required:
-                                uri_list.append(schema_uri.uri)
+                                uri_list += (schema_uri.uri,)
                 if len(uri_list) == 0:
                     uri_list = None
                 if len(one_of_uri_groups) == 0:
@@ -757,7 +755,7 @@ async def present_proof_credentials_list(request: web.BaseRequest):
             for dif_credential in dif_credentials:
                 cred_value = dif_credential.cred_value
                 cred_value["record_id"] = dif_credential.record_id
-                dif_cred_value_list.append(cred_value)
+                dif_cred_value_list += (cred_value,)
     except (
         StorageNotFoundError,
         V20PresFormatHandlerError,
@@ -783,7 +781,7 @@ async def process_vcrecords_return_list(
     to_add = []
     for vc_record in vc_records:
         if vc_record.record_id not in record_ids:
-            to_add.append(vc_record)
+            to_add += (vc_record,)
             record_ids.add(vc_record.record_id)
     return (to_add, record_ids)
 
@@ -796,9 +794,9 @@ async def retrieve_uri_list_from_schema_filter(
     for schema_group in schema_uri_groups:
         uri_list = []
         for schema in schema_group:
-            uri_list.append(schema.uri)
+            uri_list += (schema.uri,)
         if len(uri_list) > 0:
-            group_schema_uri_list.append(uri_list)
+            group_schema_uri_list += (uri_list,)
     return group_schema_uri_list
 
 
@@ -1457,10 +1455,10 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "present-proof v2.0",
             "description": "Proof presentation v2.0",
             "externalDocs": {"description": "Specification", "url": SPEC_URI},
-        }
+        },
     )

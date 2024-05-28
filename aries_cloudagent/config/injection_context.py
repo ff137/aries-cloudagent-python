@@ -86,7 +86,7 @@ class InjectionContext(BaseInjector):
                     "Cannot re-enter scope: {}".format(scope_name)
                 )
         result = self.copy()
-        result._scopes.append(Scope(name=self.scope_name, injector=self.injector))
+        result._scopes += (Scope(name=self.scope_name, injector=self.injector),)
         result._scope_name = scope_name
         if settings:
             result.update_settings(settings)

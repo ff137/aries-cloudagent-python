@@ -44,7 +44,7 @@ def unpack_to_nibbles(bindata):
     o = bin_to_nibbles(bindata)
     flags = o[0]
     if flags & 2:
-        o.append(NIBBLE_TERMINATOR)
+        o += (NIBBLE_TERMINATOR,)
     if flags & 1 == 1:
         o = o[1:]
     else:

@@ -230,8 +230,8 @@ class IndyPresExchHandler:
         rev_reg_entries = {}
 
         for identifier in identifiers:
-            schema_ids.append(identifier["schema_id"])
-            cred_def_ids.append(identifier["cred_def_id"])
+            schema_ids += (identifier["schema_id"],)
+            cred_def_ids += (identifier["cred_def_id"],)
             multitenant_mgr = self._profile.inject_or(BaseMultitenantManager)
             if multitenant_mgr:
                 ledger_exec_inst = IndyLedgerRequestsExecutor(self._profile)

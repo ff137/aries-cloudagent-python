@@ -118,7 +118,7 @@ class V10DiscoveryMgr:
                 if "roles" in result:
                     to_publish_result["roles"] = result.get("roles")
 
-                published_results.append(to_publish_result)
+                published_results += (to_publish_result,)
 
         disclose_msg = Disclose(protocols=published_results)
         # Check if query message has a thid

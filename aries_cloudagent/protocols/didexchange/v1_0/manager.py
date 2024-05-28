@@ -340,7 +340,7 @@ class DIDXManager(BaseConnectionManager):
             my_endpoints = []
             default_endpoint = self.profile.settings.get("default_endpoint")
             if default_endpoint:
-                my_endpoints.append(default_endpoint)
+                my_endpoints += (default_endpoint,)
             my_endpoints.extend(self.profile.settings.get("additional_endpoints", []))
 
         if not my_label:
@@ -791,7 +791,7 @@ class DIDXManager(BaseConnectionManager):
             my_endpoints = []
             default_endpoint = self.profile.settings.get("default_endpoint")
             if default_endpoint:
-                my_endpoints.append(default_endpoint)
+                my_endpoints += (default_endpoint,)
             my_endpoints.extend(self.profile.settings.get("additional_endpoints", []))
 
         if conn_rec.their_did and conn_rec.their_did.startswith("did:peer:2"):

@@ -39,11 +39,11 @@ def _routing_keys_as_did_key_urls(routing_keys: Sequence[str]) -> Sequence[str]:
     did_key_urls = []
     for routing_key in routing_keys:
         if not routing_key.startswith("did:key:"):
-            did_key_urls.append(DIDKey.from_public_key_b58(routing_key, ED25519).key_id)
+            did_key_urls += (DIDKey.from_public_key_b58(routing_key, ED25519).key_id,)
         else:
             if "#" not in routing_key:
-                did_key_urls.append(
-                    f"{routing_key}#{DIDKey.from_did(routing_key).fingerprint}"
+                did_key_urls += (
+                    f"{routing_key}#{DIDKey.from_did(routing_key).fingerprint}",
                 )
             else:
                 return routing_keys
@@ -140,7 +140,7 @@ class IndyDIDResolver(BaseDIDResolver):
                     # accept=(service_accept if service_accept else ["didcomm/v2"]),
                     accept=["didcomm/v2"],
                 )
-                builder.context.append(self.CONTEXT_DIDCOMM_V2)
+                builder.context += (self.CONTEXT_DIDCOMM_V2,)
         else:
             LOGGER.warning(
                 "No endpoint for DID although endpoint attrib was resolvable"

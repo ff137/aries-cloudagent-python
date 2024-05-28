@@ -181,7 +181,7 @@ def post_process_routes(app: web.Application):
     # Add top-level tags description
     if "tags" not in app._state["swagger_dict"]:
         app._state["swagger_dict"]["tags"] = []
-    app._state["swagger_dict"]["tags"].append(
+    app._state["swagger_dict"]["tags"] += (
         {
             "name": "jsonld",
             "description": "Sign and verify json-ld data",
@@ -189,5 +189,5 @@ def post_process_routes(app: web.Application):
                 "description": "Specification",
                 "url": "https://tools.ietf.org/html/rfc7515",
             },
-        }
+        },
     )
