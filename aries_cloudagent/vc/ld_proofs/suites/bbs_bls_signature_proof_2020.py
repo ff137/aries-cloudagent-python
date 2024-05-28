@@ -181,12 +181,8 @@ class BbsBlsSignatureProof2020(BbsBlsSignature2020Base):
                 if input_statement_index in reveal_indices
                 else ProofMessageType.HiddenProofSpecificBlinding
             )
-            proof_messages.append(
-                ProofMessage(
-                    message=all_input_statements[input_statement_index],
-                    proof_type=proof_type,
-                )
-            )
+            message = all_input_statements[input_statement_index]
+            proof_messages += (ProofMessage(message=message, proof_type=proof_type),)
 
         # get bbs key from bls key pair
         bbs_public_key = BlsKeyPair(public_key=key_pair.public_key).get_bbs_key(

@@ -146,16 +146,15 @@ class BaseConnectionManager:
 
         services = []
         for index, endpoint in enumerate(svc_endpoints or []):
-            services.append(
-                {
-                    "id": f"#didcomm-{index}",
-                    "type": "did-communication",
-                    "recipientKeys": ["#key-0"],
-                    "routingKeys": routing_keys,
-                    "serviceEndpoint": endpoint,
-                    "priority": index,
-                }
-            )
+            service = {
+                "id": f"#didcomm-{index}",
+                "type": "did-communication",
+                "recipientKeys": ["#key-0"],
+                "routingKeys": routing_keys,
+                "serviceEndpoint": endpoint,
+                "priority": index,
+            }
+            services += (service,)
 
         async with self._profile.session() as session:
             wallet = session.inject(BaseWallet)
@@ -212,16 +211,15 @@ class BaseConnectionManager:
 
         services = []
         for index, endpoint in enumerate(svc_endpoints or []):
-            services.append(
-                {
-                    "id": f"#didcomm-{index}",
-                    "type": "did-communication",
-                    "priority": index,
-                    "recipientKeys": ["#key-1"],
-                    "routingKeys": routing_keys,
-                    "serviceEndpoint": endpoint,
-                }
-            )
+            service = {
+                "id": f"#didcomm-{index}",
+                "type": "did-communication",
+                "priority": index,
+                "recipientKeys": ["#key-1"],
+                "routingKeys": routing_keys,
+                "serviceEndpoint": endpoint,
+            }
+            services += (service,)
 
         async with self._profile.session() as session:
             wallet = session.inject(BaseWallet)
@@ -518,22 +516,21 @@ class BaseConnectionManager:
                     doc, service
                 )
                 endpoint = str(service.service_endpoint)
-                targets.append(
-                    ConnectionTarget(
-                        did=doc.id,
-                        endpoint=endpoint,
-                        label=their_label,
-                        recipient_keys=[
-                            self._extract_key_material_in_base58_format(key)
-                            for key in recips
-                        ],
-                        routing_keys=[
-                            self._extract_key_material_in_base58_format(key)
-                            for key in routing
-                        ],
-                        sender_key=sender_verkey,
-                    )
+                target = ConnectionTarget(
+                    did=doc.id,
+                    endpoint=endpoint,
+                    label=their_label,
+                    recipient_keys=[
+                        self._extract_key_material_in_base58_format(key)
+                        for key in recips
+                    ],
+                    routing_keys=[
+                        self._extract_key_material_in_base58_format(key)
+                        for key in routing
+                    ],
+                    sender_key=sender_verkey,
                 )
+                targets += (target,)
             except ResolverError:
                 self._logger.exception(
                     "Failed to resolve service details while determining "
@@ -825,20 +822,15 @@ class BaseConnectionManager:
         targets = []
         for service in doc.service.values():
             if service.recip_keys:
-                targets.append(
-                    ConnectionTarget(
-                        did=doc.did,
-                        endpoint=service.endpoint,
-                        label=their_label,
-                        recipient_keys=[
-                            key.value for key in (service.recip_keys or ())
-                        ],
-                        routing_keys=[
-                            key.value for key in (service.routing_keys or ())
-                        ],
-                        sender_key=sender_verkey,
-                    )
+                target = ConnectionTarget(
+                    did=doc.did,
+                    endpoint=service.endpoint,
+                    label=their_label,
+                    recipient_keys=[key.value for key in (service.recip_keys or ())],
+                    routing_keys=[key.value for key in (service.routing_keys or ())],
+                    sender_key=sender_verkey,
                 )
+                targets += (target,)
         return targets
 
     async def fetch_did_document(self, did: str) -> Tuple[dict, StorageRecord]:

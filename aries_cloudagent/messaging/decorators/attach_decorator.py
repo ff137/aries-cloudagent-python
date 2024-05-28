@@ -415,13 +415,12 @@ class AttachDecoratorData(BaseModel):
                     urlsafe=True,
                     pad=False,
                 )
-                jws["signatures"].append(
-                    {
-                        "protected": b64_protected,  # always present by construction
-                        "header": {"kid": did_key(verkey)},
-                        "signature": b64_sig,
-                    }
-                )
+                signature = {
+                    "protected": b64_protected,  # always present by construction
+                    "header": {"kid": did_key(verkey)},
+                    "signature": b64_sig,
+                }
+                jws["signatures"] += (signature,)
             self.jws_ = AttachDecoratorDataJWS.deserialize(jws)
 
     async def verify(self, wallet: BaseWallet, signer_verkey: str = None) -> bool:
@@ -453,7 +452,7 @@ class AttachDecoratorData(BaseModel):
 
             if "kid" in jwk:
                 encoded_pk = DIDKey.from_did(protected["jwk"]["kid"]).public_key_b58
-                verkey_to_check.append(encoded_pk)
+                verkey_to_check += (encoded_pk,)
                 if not await wallet.verify_message(
                     sign_input, b_sig, encoded_pk, ED25519
                 ):

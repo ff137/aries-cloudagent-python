@@ -265,14 +265,13 @@ def construct_did_key_ed25519(did_key: "DIDKey") -> dict:
     )
 
     # Ed25519 has pair with X25519
-    did_doc["keyAgreement"].append(
-        {
-            "id": f"{did_key.did}#{x25519.fingerprint}",
-            "type": "X25519KeyAgreementKey2019",
-            "controller": did_key.did,
-            "publicKeyBase58": bytes_to_b58(curve25519),
-        }
-    )
+    key_agreement = {
+        "id": f"{did_key.did}#{x25519.fingerprint}",
+        "type": "X25519KeyAgreementKey2019",
+        "controller": did_key.did,
+        "publicKeyBase58": bytes_to_b58(curve25519),
+    }
+    did_doc["keyAgreement"] += (key_agreement,)
 
     return did_doc
 

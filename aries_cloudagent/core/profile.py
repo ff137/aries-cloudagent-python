@@ -270,12 +270,11 @@ class ProfileSession(ABC):
             await self.profile.notify(topic, payload)
         else:
             # add to queue
-            self._events.append(
-                {
-                    "topic": topic,
-                    "payload": payload,
-                }
-            )
+            event = {
+                "topic": topic,
+                "payload": payload,
+            }
+            self._events += (event,)
 
     def inject(
         self,
