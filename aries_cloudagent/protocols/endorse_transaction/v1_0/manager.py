@@ -82,24 +82,18 @@ class TransactionManager:
             "mime-type": "application/json",
             "data": {"json": messages_attach},
         }
-
-        transaction = TransactionRecord()
-
-        formats = {
-            "attach_id": messages_attach_dict["@id"],
-            "format": TransactionRecord.FORMAT_VERSION,
-        }
-        transaction.formats.clear()
-        transaction.formats.append(formats)
-
-        transaction.messages_attach.clear()
-        transaction.messages_attach.append(messages_attach_dict)
-
-        if meta_data:
-            transaction.meta_data = meta_data
-
-        transaction.state = TransactionRecord.STATE_TRANSACTION_CREATED
-        transaction.connection_id = connection_id
+        transaction = TransactionRecord(
+            formats=[
+                {
+                    "attach_id": messages_attach_dict["@id"],
+                    "format": TransactionRecord.FORMAT_VERSION,
+                }
+            ],
+            messages_attach=[messages_attach_dict],
+            meta_data=meta_data,
+            state=TransactionRecord.STATE_TRANSACTION_CREATED,
+            connection_id=connection_id,
+        )
 
         async with self._profile.session() as session:
             await transaction.save(session, reason="Created a Transaction Record")
@@ -136,23 +130,23 @@ class TransactionManager:
             )
 
         transaction._type = TransactionRecord.SIGNATURE_REQUEST
-        signature_request = {
-            "context": TransactionRecord.SIGNATURE_CONTEXT,
-            "method": TransactionRecord.ADD_SIGNATURE,
-            "signature_type": TransactionRecord.SIGNATURE_TYPE,
-            "signer_goal_code": (
-                signer_goal_code
-                if signer_goal_code
-                else TransactionRecord.ENDORSE_TRANSACTION
-            ),
-            "author_goal_code": (
-                author_goal_code
-                if author_goal_code
-                else TransactionRecord.WRITE_TRANSACTION
-            ),
-        }
-        transaction.signature_request.clear()
-        transaction.signature_request.append(signature_request)
+        transaction.signature_request = [
+            {
+                "context": TransactionRecord.SIGNATURE_CONTEXT,
+                "method": TransactionRecord.ADD_SIGNATURE,
+                "signature_type": TransactionRecord.SIGNATURE_TYPE,
+                "signer_goal_code": (
+                    signer_goal_code
+                    if signer_goal_code
+                    else TransactionRecord.ENDORSE_TRANSACTION
+                ),
+                "author_goal_code": (
+                    author_goal_code
+                    if author_goal_code
+                    else TransactionRecord.WRITE_TRANSACTION
+                ),
+            }
+        ]
 
         transaction.state = TransactionRecord.STATE_REQUEST_SENT
 
@@ -181,26 +175,22 @@ class TransactionManager:
             connection_id: The connection id related to this transaction record
         """
 
-        transaction = TransactionRecord()
-
-        transaction._type = TransactionRecord.SIGNATURE_REQUEST
-        transaction.signature_request.clear()
-        transaction.signature_request.append(request.signature_request)
-        transaction.timing = request.timing
-
-        format = {
-            "attach_id": request.messages_attach["@id"],
-            "format": TransactionRecord.FORMAT_VERSION,
-        }
-        transaction.formats.clear()
-        transaction.formats.append(format)
-
-        transaction.messages_attach.clear()
-        transaction.messages_attach.append(request.messages_attach)
-        transaction.thread_id = request.transaction_id
-        transaction.connection_id = connection_id
-        transaction.state = TransactionRecord.STATE_REQUEST_RECEIVED
-        transaction.endorser_write_txn = request.endorser_write_txn
+        transaction = TransactionRecord(
+            _type=TransactionRecord.SIGNATURE_REQUEST,
+            signature_request=[request.signature_request],
+            timing=request.timing,
+            formats=[
+                {
+                    "attach_id": request.messages_attach["@id"],
+                    "format": TransactionRecord.FORMAT_VERSION,
+                }
+            ],
+            messages_attach=[request.messages_attach],
+            thread_id=request.transaction_id,
+            connection_id=connection_id,
+            state=TransactionRecord.STATE_REQUEST_RECEIVED,
+            endorser_write_txn=request.endorser_write_txn,
+        )
 
         async with self._profile.session() as session:
             await transaction.save(session, reason="Received an endorsement request")
@@ -317,8 +307,7 @@ class TransactionManager:
             "signature": {endorser_did: endorsed_msg or endorser_verkey},
         }
 
-        transaction.signature_response.clear()
-        transaction.signature_response.append(signature_response)
+        transaction.signature_response = [signature_response]
 
         transaction.state = state
 
@@ -361,8 +350,7 @@ class TransactionManager:
         transaction._type = TransactionRecord.SIGNATURE_RESPONSE
         transaction.state = response.state
 
-        transaction.signature_response.clear()
-        transaction.signature_response.append(response.signature_response)
+        transaction.signature_response = [response.signature_response]
 
         transaction.thread_id = response.thread_id
 
@@ -579,8 +567,7 @@ class TransactionManager:
             "method": TransactionRecord.ADD_SIGNATURE,
             "signer_goal_code": TransactionRecord.REFUSE_TRANSACTION,
         }
-        transaction.signature_response.clear()
-        transaction.signature_response.append(signature_response)
+        transaction.signature_response = [signature_response]
 
         transaction.state = state
 
@@ -612,8 +599,7 @@ class TransactionManager:
         transaction._type = TransactionRecord.SIGNATURE_RESPONSE
         transaction.state = response.state
 
-        transaction.signature_response.clear()
-        transaction.signature_response.append(response.signature_response)
+        transaction.signature_response = [response.signature_response]
         transaction.thread_id = response.thread_id
 
         async with self._profile.session() as session:
