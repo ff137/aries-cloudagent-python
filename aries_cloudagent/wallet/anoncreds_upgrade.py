@@ -496,9 +496,10 @@ async def get_rev_reg_def_upgrade_objs(
         rev_reg_def_upgrade_objs += (rev_reg_def_upgrade_obj,)
 
         # add the revocation list upgrade object from reg def upgrade object
-        rev_list_upgrade_objs.append(
-            await get_rev_list_upgrade_object(profile, rev_reg_def_upgrade_obj)
+        rev_list_upgrade_obj = await get_rev_list_upgrade_object(
+            profile, rev_reg_def_upgrade_obj
         )
+        rev_list_upgrade_objs += (rev_list_upgrade_obj,)
     return rev_reg_def_upgrade_objs
 
 
@@ -515,10 +516,11 @@ async def convert_records_to_anoncreds(profile) -> None:
 
         # Schemas
         for askar_schema in askar_schema_records:
-            schema_upgrade_objs.append(
-                await get_schema_upgrade_object(profile, askar_schema.id, askar_schema)
+            schema_upgrade_obj = await get_schema_upgrade_object(
+                profile, askar_schema.id, askar_schema
             )
 
+            schema_upgrade_objs += (schema_upgrade_obj,)
         # CredDefs and Revocation Objects
         askar_cred_def_records = await storage.find_all_records(
             CRED_DEF_SENT_RECORD_TYPE, {}

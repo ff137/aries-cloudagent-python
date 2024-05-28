@@ -301,9 +301,8 @@ class DIFPresExchHandler:
         )
         for submission_requirement in srs:
             try:
-                requirement.nested_req.append(
-                    await self.to_requirement(submission_requirement, descriptors)
-                )
+                req = await self.to_requirement(submission_requirement, descriptors)
+                requirement.nested_req += (req,)
             except Exception as err:
                 raise DIFPresExchError(
                     f"Error creating requirement inside to_requirement function, {err}"
@@ -1546,7 +1545,8 @@ class DIFPresExchHandler:
         """Return field with updated json path, if necessary."""
         new_paths = []
         for path in field.paths:
-            new_paths.append(await self.get_updated_path(cred, path))
+            new_path = await self.get_updated_path(cred, path)
+            new_paths += (new_path,)
         field.paths = new_paths
         return field
 

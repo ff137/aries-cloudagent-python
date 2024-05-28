@@ -128,12 +128,13 @@ class V20PresManager:
             pres_exch_format = V20PresFormat.Format.get(format.format)
 
             if pres_exch_format:
-                request_formats.append(
-                    await pres_exch_format.handler(self._profile).create_bound_request(
-                        pres_ex_record,
-                        request_data,
-                    )
+                format = await pres_exch_format.handler(
+                    self._profile
+                ).create_bound_request(
+                    pres_ex_record,
+                    request_data,
                 )
+                request_formats += (format,)
         if len(request_formats) == 0:
             raise V20PresManagerError(
                 "Unable to create presentation request. No supported formats"

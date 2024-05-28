@@ -226,11 +226,10 @@ class V20CredManager:
             cred_format = V20CredFormat.Format.get(format.format)
 
             if cred_format:
-                formats.append(
-                    await cred_format.handler(self.profile).create_offer(
-                        cred_proposal_message
-                    )
+                attachment = await cred_format.handler(self.profile).create_offer(
+                    cred_proposal_message
                 )
+                formats += (attachment,)
 
         if len(formats) == 0:
             raise V20CredManagerError(
@@ -359,11 +358,10 @@ class V20CredManager:
             cred_format = V20CredFormat.Format.get(format.format)
 
             if cred_format:
-                request_formats.append(
-                    await cred_format.handler(self.profile).create_request(
-                        cred_ex_record, {"holder_did": holder_did}
-                    )
+                attachment = await cred_format.handler(self.profile).create_request(
+                    cred_ex_record, {"holder_did": holder_did}
                 )
+                request_formats += (attachment,)
 
         if len(request_formats) == 0:
             raise V20CredManagerError(
@@ -508,11 +506,10 @@ class V20CredManager:
             cred_format = V20CredFormat.Format.get(format.format)
 
             if cred_format:
-                issue_formats.append(
-                    await cred_format.handler(self.profile).issue_credential(
-                        cred_ex_record
-                    )
+                attachment = await cred_format.handler(self.profile).issue_credential(
+                    cred_ex_record
                 )
+                issue_formats += (attachment,)
 
         if len(issue_formats) == 0:
             raise V20CredManagerError(

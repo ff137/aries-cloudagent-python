@@ -50,10 +50,9 @@ async def get_subwallet_profiles_from_storage(root_profile: Profile) -> list[Pro
                 wallet_storage_record.id,
                 json.loads(wallet_storage_record.value),
             )
-            subwallet_profiles.append(
-                await MultitenantManager(root_profile).get_wallet_profile(
-                    base_context=root_profile.context,
-                    wallet_record=wallet_record,
-                )
+            wallet_profile = await MultitenantManager(root_profile).get_wallet_profile(
+                base_context=root_profile.context,
+                wallet_record=wallet_record,
             )
+            subwallet_profiles += (wallet_profile,)
     return subwallet_profiles
