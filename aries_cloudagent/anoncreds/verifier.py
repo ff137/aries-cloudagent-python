@@ -68,10 +68,11 @@ class AnonCredsVerifier:
                     if uuid in pres_req[pres_key] and pres_req[pres_key][uuid].pop(
                         "non_revoked", None
                     ):
-                        msgs.append(
+                        msg = (
                             f"{PresVerifyMsg.RMV_REFERENT_NON_REVOC_INTERVAL.value}::"
                             f"{uuid}"
                         )
+                        msgs += (msg,)
                         LOGGER.info(
                             (
                                 "Amended presentation request (nonce=%s): removed "
@@ -193,20 +194,20 @@ class AnonCredsVerifier:
                             < timestamp
                             < non_revoc_intervals[uuid].get("to", now)
                         ):
-                            msgs.append(
+                            msg = (
                                 f"{PresVerifyMsg.TSTMP_OUT_NON_REVOC_INTRVAL.value}::"
                                 f"{uuid}"
                             )
+                            msgs += (msg,)
                             LOGGER.info(
-                                f"Timestamp {timestamp} from ledger for item"
+                                f"Timestamp {timestamp} from ledger for item "
                                 f"{uuid} falls outside non-revocation interval "
                                 f"{non_revoc_intervals[uuid]}"
                             )
                 elif uuid in unrevealed_attrs:
                     # nothing to do, attribute value is not revealed
-                    msgs.append(
-                        f"{PresVerifyMsg.CT_UNREVEALED_ATTRIBUTES.value}::" f"{uuid}"
-                    )
+                    msg = f"{PresVerifyMsg.CT_UNREVEALED_ATTRIBUTES.value}::{uuid}"
+                    msgs += (msg,)
                 elif uuid not in self_attested:
                     raise ValueError(
                         f"Presentation attributes mismatch requested attribute {uuid}"
@@ -234,10 +235,10 @@ class AnonCredsVerifier:
                         < timestamp
                         < non_revoc_intervals[uuid].get("to", now)
                     ):
-                        msgs.append(
-                            f"{PresVerifyMsg.TSTMP_OUT_NON_REVOC_INTRVAL.value}::"
-                            f"{uuid}"
+                        msg = (
+                            f"{PresVerifyMsg.TSTMP_OUT_NON_REVOC_INTRVAL.value}::{uuid}"
                         )
+                        msgs += (msg,)
                         LOGGER.warning(
                             f"Timestamp {timestamp} from ledger for item"
                             f"{uuid} falls outside non-revocation interval "
@@ -264,9 +265,8 @@ class AnonCredsVerifier:
                     < timestamp
                     < non_revoc_intervals[uuid].get("to", now)
                 ):
-                    msgs.append(
-                        f"{PresVerifyMsg.TSTMP_OUT_NON_REVOC_INTRVAL.value}::" f"{uuid}"
-                    )
+                    msg = f"{PresVerifyMsg.TSTMP_OUT_NON_REVOC_INTRVAL.value}::{uuid}"
+                    msgs += (msg,)
                     LOGGER.warning(
                         f"Best-effort timestamp {timestamp} "
                         "from ledger falls outside non-revocation interval "
@@ -332,9 +332,8 @@ class AnonCredsVerifier:
                 elif uuid in unrevealed_attrs:
                     # unrevealed attribute, nothing to do
                     pres_req_attr_spec = {}
-                    msgs.append(
-                        f"{PresVerifyMsg.CT_UNREVEALED_ATTRIBUTES.value}::" f"{uuid}"
-                    )
+                    msg = f"{PresVerifyMsg.CT_UNREVEALED_ATTRIBUTES.value}::{uuid}"
+                    msgs += (msg,)
                 elif uuid in self_attested:
                     if not req_attr.get("restrictions"):
                         continue
@@ -464,7 +463,8 @@ class AnonCredsVerifier:
             msgs += await self.pre_verify(pres_req, pres)
         except ValueError as err:
             s = str(err)
-            msgs.append(f"{PresVerifyMsg.PRES_VALUE_ERROR.value}::{s}")
+            msg = f"{PresVerifyMsg.PRES_VALUE_ERROR.value}::{s}"
+            msgs += (msg,)
             LOGGER.error(
                 f"Presentation on nonce={pres_req['nonce']} "
                 f"cannot be validated: {str(err)}"
@@ -488,7 +488,8 @@ class AnonCredsVerifier:
             )
         except AnoncredsError as err:
             s = str(err)
-            msgs.append(f"{PresVerifyMsg.PRES_VERIFY_ERROR.value}::{s}")
+            msg = f"{PresVerifyMsg.PRES_VERIFY_ERROR.value}::{s}"
+            msgs += (msg,)
             LOGGER.exception(
                 f"Validation of presentation on nonce={pres_req['nonce']} "
                 "failed with error"

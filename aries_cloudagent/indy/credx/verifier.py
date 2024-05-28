@@ -59,7 +59,8 @@ class IndyCredxVerifier(IndyVerifier):
             msgs += await self.pre_verify(pres_req, pres)
         except ValueError as err:
             s = str(err)
-            msgs.append(f"{PresVerifyMsg.PRES_VALUE_ERROR.value}::{s}")
+            msg = f"{PresVerifyMsg.PRES_VALUE_ERROR.value}::{s}"
+            msgs += (msg,)
             LOGGER.error(
                 f"Presentation on nonce={pres_req['nonce']} "
                 f"cannot be validated (presentation will be marked as Invalid)"
@@ -81,7 +82,8 @@ class IndyCredxVerifier(IndyVerifier):
             )
         except CredxError as err:
             s = str(err)
-            msgs.append(f"{PresVerifyMsg.PRES_VERIFY_ERROR.value}::{s}")
+            msg = f"{PresVerifyMsg.PRES_VERIFY_ERROR.value}::{s}"
+            msgs += (msg,)
             LOGGER.exception(
                 f"Validation of presentation on nonce={pres_req['nonce']} "
                 "failed with error"
