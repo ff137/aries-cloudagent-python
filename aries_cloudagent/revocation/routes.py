@@ -56,7 +56,7 @@ from ..protocols.endorse_transaction.v1_0.util import (
     get_endorser_connection_id,
     is_author_role,
 )
-from ..storage.base import BaseStorage
+from ..storage.base import DEFAULT_PAGE_SIZE, BaseStorage
 from ..storage.error import StorageError, StorageNotFoundError
 from ..utils.profiles import is_anoncreds_profile_raise_web_exception
 from .error import RevocationError, RevocationNotSupportedError
@@ -827,10 +827,16 @@ async def rev_regs_created(request: web.BaseRequest):
     tag_filter = {
         tag: request.query[tag] for tag in search_tags if tag in request.query
     }
+
+    limit = int(request.query.get("limit", DEFAULT_PAGE_SIZE))
+    offset = int(request.query.get("offset", 0))
+
     async with context.profile.session() as session:
         found = await IssuerRevRegRecord.query(
             session,
             tag_filter,
+            limit=limit,
+            offset=offset,
             post_filter_negative={"state": IssuerRevRegRecord.STATE_INIT},
         )
 
