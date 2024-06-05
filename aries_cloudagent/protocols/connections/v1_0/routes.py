@@ -13,6 +13,8 @@ from aiohttp_apispec import (
 )
 from marshmallow import fields, validate, validates_schema
 
+from aries_cloudagent.storage.base import DEFAULT_PAGE_SIZE
+
 from ....admin.decorators.auth import tenant_authentication
 from ....admin.request_context import AdminRequestContext
 from ....cache.base import BaseCache
@@ -468,11 +470,19 @@ async def connections_list(request: web.BaseRequest):
     if request.query.get("connection_protocol"):
         post_filter["connection_protocol"] = request.query["connection_protocol"]
 
+    limit = int(request.query.get("limit", DEFAULT_PAGE_SIZE))
+    offset = int(request.query.get("offset", 0))
+
     profile = context.profile
     try:
         async with profile.session() as session:
             records = await ConnRecord.query(
-                session, tag_filter, post_filter_positive=post_filter, alt=True
+                session,
+                tag_filter,
+                limit=limit,
+                offset=offset,
+                post_filter_positive=post_filter,
+                alt=True,
             )
         results = [record.serialize() for record in records]
         results.sort(key=connection_sort_key)

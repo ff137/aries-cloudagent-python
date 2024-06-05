@@ -12,6 +12,8 @@ from aiohttp_apispec import (
 )
 from marshmallow import fields, validate
 
+from aries_cloudagent.storage.base import DEFAULT_PAGE_SIZE
+
 from ....admin.decorators.auth import tenant_authentication
 from ....admin.request_context import AdminRequestContext
 from ....connections.models.conn_record import ConnRecord
@@ -140,10 +142,18 @@ async def transactions_list(request: web.BaseRequest):
     tag_filter = {}
     post_filter = {}
 
+    limit = int(request.query.get("limit", DEFAULT_PAGE_SIZE))
+    offset = int(request.query.get("offset", 0))
+
     try:
         async with context.profile.session() as session:
             records = await TransactionRecord.query(
-                session, tag_filter, post_filter_positive=post_filter, alt=True
+                session,
+                tag_filter,
+                limit=limit,
+                offset=offset,
+                post_filter_positive=post_filter,
+                alt=True,
             )
         results = [record.serialize() for record in records]
     except (StorageError, BaseModelError) as err:
