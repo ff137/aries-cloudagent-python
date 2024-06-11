@@ -83,7 +83,10 @@ class InMemoryProfile(Profile):
     ) -> "InMemoryProfile":
         """Used in tests to create a standard InMemoryProfile."""
         profile = InMemoryProfile(
-            context=InjectionContext(enforce_typing=False, settings=settings),
+            context=InjectionContext(
+                enforce_typing=False,
+                settings=settings or {"admin.admin_insecure_mode": True},
+            ),
             name=InMemoryProfile.TEST_PROFILE_NAME,
             profile_class=profile_class,
         )
