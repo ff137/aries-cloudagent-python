@@ -54,6 +54,7 @@ async def get_subwallet_profiles_from_storage(root_profile: Profile) -> list[Pro
                 await MultitenantManager(root_profile).get_wallet_profile(
                     base_context=root_profile.context,
                     wallet_record=wallet_record,
+                    provision=True
                 )
             )
     return subwallet_profiles
