@@ -80,7 +80,7 @@ from ..version import RECORD_TYPE_ACAPY_VERSION, __version__
 from ..wallet.anoncreds_upgrade import upgrade_wallet_to_anoncreds_if_requested
 from ..wallet.did_info import DIDInfo
 from .dispatcher import Dispatcher
-from .error import StartupError
+from .error import ProfileError, StartupError
 from .oob_processor import OobMessageProcessor
 from .util import SHUTDOWN_EVENT_TOPIC, STARTUP_EVENT_TOPIC
 
@@ -519,7 +519,12 @@ class Conductor:
             except Exception:
                 LOGGER.exception("Error accepting mediation invitation")
 
-        await self.check_for_wallet_upgrades_in_progress()
+        try:
+            await self.check_for_wallet_upgrades_in_progress()
+        except Exception as e:
+            LOGGER.error(
+                f"An error occurred while checking for wallet upgrades in progress: {e}"
+            )
 
         # notify protcols of startup status
         await self.root_profile.notify(STARTUP_EVENT_TOPIC, {})
