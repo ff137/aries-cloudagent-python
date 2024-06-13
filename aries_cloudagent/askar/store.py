@@ -165,8 +165,9 @@ class AskarStoreConfig:
                 raise ProfileNotFoundError(
                     f"Store '{self.name}' not found",
                 )
-            raise ProfileError("Error opening store") from err
-
+            raise ProfileError(
+                f"Error opening store, with config: {self.storage_config=}, {self.storage_type=}, {self.get_uri()=}"
+            ) from err
         return AskarOpenStore(self, provision, store)
 
 
