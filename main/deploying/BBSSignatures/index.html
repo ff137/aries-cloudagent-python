@@ -9,8 +9,10 @@
       
       
       
-        <link rel="prev" href="../PUBLISHING/">
+        <link rel="prev" href="../UpgradingACA-Py/">
       
+      
+        <link rel="next" href="../IndySDKtoAskarMigration/">
       
       
       <link rel="icon" href="https://raw.githubusercontent.com/hyperledger/aries-cloudagent-python/main/docs/assets/aries-favicon.png">
@@ -18,14 +20,14 @@
     
     
       
-        <title>Updating the ACA-Py ReadTheDocs Site - Hyperledger Aries ACA-Py Docs</title>
+        <title>Enabling BBS Signatures support - Hyperledger Aries ACA-Py Docs</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.3cba04c6.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.3cba04c6.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -44,7 +46,7 @@
       
     
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
 
@@ -70,7 +72,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#managing-aries-cloud-agent-python-read-the-docs-documentation" class="md-skip">
+        <a href="#bbs-signatures-support" class="md-skip">
           Skip to content
         </a>
       
@@ -90,7 +92,7 @@
 
 <header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Hyperledger Aries ACA-Py Docs" class="md-header__button md-logo" aria-label="Hyperledger Aries ACA-Py Docs" data-md-component="logo">
+    <a href="../.." title="Hyperledger Aries ACA-Py Docs" class="md-header__button md-logo" aria-label="Hyperledger Aries ACA-Py Docs" data-md-component="logo">
       
   <img src="https://raw.githubusercontent.com/hyperledger/aries-acapy-docs/main/assets/Hyperledger_Aries_Logo_White.png" alt="logo">
 
@@ -109,7 +111,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Updating the ACA-Py ReadTheDocs Site
+              Enabling BBS Signatures support
             
           </span>
         </div>
@@ -212,7 +214,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../aca-py.org/" class="md-tabs__link">
+        <a href="../../aca-py.org/" class="md-tabs__link">
           
   
   Welcome!
@@ -230,7 +232,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../features/DevReadMe/" class="md-tabs__link">
+        <a href="../../features/DevReadMe/" class="md-tabs__link">
           
   
   Features
@@ -248,7 +250,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../demo/Aries-Workshop/" class="md-tabs__link">
+        <a href="../../demo/Aries-Workshop/" class="md-tabs__link">
           
   
   Demos
@@ -266,7 +268,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../gettingStarted/" class="md-tabs__link">
+        <a href="../../gettingStarted/" class="md-tabs__link">
           
   
   Getting Started
@@ -280,11 +282,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../deploying/deploymentModel/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../deploymentModel/" class="md-tabs__link">
           
   
   Deploying
@@ -302,7 +306,7 @@
     
     
       <li class="md-tabs__item">
-        <a href="../testing/UnitTests/" class="md-tabs__link">
+        <a href="../../testing/UnitTests/" class="md-tabs__link">
           
   
   Testing/Troubleshooting
@@ -316,13 +320,11 @@
         
   
   
-    
-  
   
     
     
-      <li class="md-tabs__item md-tabs__item--active">
-        <a href="../CONTRIBUTING/" class="md-tabs__link">
+      <li class="md-tabs__item">
+        <a href="../../CONTRIBUTING/" class="md-tabs__link">
           
   
   Contributing
@@ -361,7 +363,7 @@
 
 <nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Hyperledger Aries ACA-Py Docs" class="md-nav__button md-logo" aria-label="Hyperledger Aries ACA-Py Docs" data-md-component="logo">
+    <a href="../.." title="Hyperledger Aries ACA-Py Docs" class="md-nav__button md-logo" aria-label="Hyperledger Aries ACA-Py Docs" data-md-component="logo">
       
   <img src="https://raw.githubusercontent.com/hyperledger/aries-acapy-docs/main/assets/Hyperledger_Aries_Logo_White.png" alt="logo">
 
@@ -430,7 +432,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../aca-py.org/" class="md-nav__link">
+      <a href="../../aca-py.org/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -451,7 +453,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -472,7 +474,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CHANGELOG/" class="md-nav__link">
+      <a href="../../CHANGELOG/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -493,7 +495,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../LTS-Strategy/" class="md-nav__link">
+      <a href="../../LTS-Strategy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -561,7 +563,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/DevReadMe/" class="md-nav__link">
+      <a href="../../features/DevReadMe/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -582,7 +584,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/devcontainer/" class="md-nav__link">
+      <a href="../../features/devcontainer/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -603,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/SupportedRFCs/" class="md-nav__link">
+      <a href="../../features/SupportedRFCs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -624,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/AdminAPI/" class="md-nav__link">
+      <a href="../../features/AdminAPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -645,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/PlugIns/" class="md-nav__link">
+      <a href="../../features/PlugIns/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -666,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/Multitenancy/" class="md-nav__link">
+      <a href="../../features/Multitenancy/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -687,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/QualifiedDIDs/" class="md-nav__link">
+      <a href="../../features/QualifiedDIDs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -708,7 +710,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/DIDMethods/" class="md-nav__link">
+      <a href="../../features/DIDMethods/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -729,7 +731,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/DIDResolution/" class="md-nav__link">
+      <a href="../../features/DIDResolution/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -750,7 +752,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/AnonCredsMethods/" class="md-nav__link">
+      <a href="../../features/AnonCredsMethods/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -771,7 +773,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/Multiledger/" class="md-nav__link">
+      <a href="../../features/Multiledger/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -792,7 +794,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/Endorser/" class="md-nav__link">
+      <a href="../../features/Endorser/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -813,7 +815,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/JsonLdCredentials/" class="md-nav__link">
+      <a href="../../features/JsonLdCredentials/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -834,7 +836,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/SelectiveDisclosureJWTs/" class="md-nav__link">
+      <a href="../../features/SelectiveDisclosureJWTs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -855,7 +857,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/AnoncredsProofValidation/" class="md-nav__link">
+      <a href="../../features/AnoncredsProofValidation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -876,7 +878,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/Multicredentials/" class="md-nav__link">
+      <a href="../../features/Multicredentials/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -897,7 +899,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/UsingOpenAPI/" class="md-nav__link">
+      <a href="../../features/UsingOpenAPI/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -918,7 +920,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../features/Mediation/" class="md-nav__link">
+      <a href="../../features/Mediation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -986,7 +988,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/Aries-Workshop/" class="md-nav__link">
+      <a href="../../demo/Aries-Workshop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1007,7 +1009,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/" class="md-nav__link">
+      <a href="../../demo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1028,7 +1030,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/AriesOpenAPIDemo/" class="md-nav__link">
+      <a href="../../demo/AriesOpenAPIDemo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1049,7 +1051,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/AliceGetsAPhone/" class="md-nav__link">
+      <a href="../../demo/AliceGetsAPhone/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1070,7 +1072,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/Endorser/" class="md-nav__link">
+      <a href="../../demo/Endorser/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1091,7 +1093,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/AliceWantsAJsonCredential/" class="md-nav__link">
+      <a href="../../demo/AliceWantsAJsonCredential/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1112,7 +1114,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/AcmeDemoWorkshop/" class="md-nav__link">
+      <a href="../../demo/AcmeDemoWorkshop/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1133,7 +1135,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/AriesPostmanDemo/" class="md-nav__link">
+      <a href="../../demo/AriesPostmanDemo/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1154,7 +1156,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../demo/ReusingAConnection/" class="md-nav__link">
+      <a href="../../demo/ReusingAConnection/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1222,7 +1224,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/" class="md-nav__link">
+      <a href="../../gettingStarted/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1243,7 +1245,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/IndyBasics/" class="md-nav__link">
+      <a href="../../gettingStarted/IndyBasics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1264,7 +1266,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesBasics/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesBasics/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1285,7 +1287,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/DecentralizedIdentityDemos/" class="md-nav__link">
+      <a href="../../gettingStarted/DecentralizedIdentityDemos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1306,7 +1308,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesBigPicture/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesBigPicture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1327,7 +1329,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesAgentArchitecture/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesAgentArchitecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1348,7 +1350,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesMessaging/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesMessaging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1369,7 +1371,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesDeveloperDemos/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesDeveloperDemos/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1390,7 +1392,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AgentConnections/" class="md-nav__link">
+      <a href="../../gettingStarted/AgentConnections/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1411,7 +1413,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/IssuingAnonCredsCredentials/" class="md-nav__link">
+      <a href="../../gettingStarted/IssuingAnonCredsCredentials/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1432,7 +1434,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/PresentingAnonCredsProofs/" class="md-nav__link">
+      <a href="../../gettingStarted/PresentingAnonCredsProofs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1453,7 +1455,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/YourOwnAriesAgent/" class="md-nav__link">
+      <a href="../../gettingStarted/YourOwnAriesAgent/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1474,7 +1476,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/IndyAriesDevOptions/" class="md-nav__link">
+      <a href="../../gettingStarted/IndyAriesDevOptions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1495,7 +1497,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/DIDcommMsgs/" class="md-nav__link">
+      <a href="../../gettingStarted/DIDcommMsgs/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1516,7 +1518,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/RoutingEncryption/" class="md-nav__link">
+      <a href="../../gettingStarted/RoutingEncryption/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1537,7 +1539,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/AriesRoutingExample/" class="md-nav__link">
+      <a href="../../gettingStarted/AriesRoutingExample/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1558,7 +1560,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/ConnectIndyNetwork/" class="md-nav__link">
+      <a href="../../gettingStarted/ConnectIndyNetwork/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1579,7 +1581,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../gettingStarted/CredentialRevocation/" class="md-nav__link">
+      <a href="../../gettingStarted/CredentialRevocation/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1604,25 +1606,28 @@
       
   
   
+    
   
   
+  
     
     
     
-      
-      
-    
-    
-    <li class="md-nav__item md-nav__item--nested">
       
         
+        
+      
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -1633,7 +1638,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             Deploying
@@ -1647,7 +1652,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/deploymentModel/" class="md-nav__link">
+      <a href="../deploymentModel/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1668,7 +1673,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/UpgradingACA-Py/" class="md-nav__link">
+      <a href="../UpgradingACA-Py/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1686,10 +1691,30 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../deploying/BBSSignatures/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Enabling BBS Signatures support
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -1698,6 +1723,59 @@
   
 
       </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#development-and-testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development and Testing
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Development and Testing">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#developer-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Developer setup
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#testing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Testing
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1710,7 +1788,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/IndySDKtoAskarMigration/" class="md-nav__link">
+      <a href="../IndySDKtoAskarMigration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1731,7 +1809,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/AnoncredsControllerMigration/" class="md-nav__link">
+      <a href="../AnoncredsControllerMigration/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1752,7 +1830,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/Poetry/" class="md-nav__link">
+      <a href="../Poetry/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1773,7 +1851,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/ContainerImagesAndGithubActions/" class="md-nav__link">
+      <a href="../ContainerImagesAndGithubActions/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1794,7 +1872,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/Databases/" class="md-nav__link">
+      <a href="../Databases/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1815,7 +1893,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/RedisPlugins/" class="md-nav__link">
+      <a href="../RedisPlugins/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1836,7 +1914,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../deploying/AnonCredsWalletType/" class="md-nav__link">
+      <a href="../AnonCredsWalletType/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1904,7 +1982,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/UnitTests/" class="md-nav__link">
+      <a href="../../testing/UnitTests/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1925,7 +2003,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/Logging/" class="md-nav__link">
+      <a href="../../testing/Logging/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1946,7 +2024,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/INTEGRATION-TESTS/" class="md-nav__link">
+      <a href="../../testing/INTEGRATION-TESTS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1967,7 +2045,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/AgentTracing/" class="md-nav__link">
+      <a href="../../testing/AgentTracing/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -1988,7 +2066,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../testing/Troubleshooting/" class="md-nav__link">
+      <a href="../../testing/Troubleshooting/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2013,28 +2091,25 @@
       
   
   
-    
   
   
-  
     
     
     
       
-        
-        
-      
       
     
     
-    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--nested">
       
         
-        
-        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_7" checked>
         
           
-          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="">
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
             
   
   <span class="md-ellipsis">
@@ -2045,7 +2120,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="true">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             Contributing
@@ -2059,7 +2134,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CONTRIBUTING/" class="md-nav__link">
+      <a href="../../CONTRIBUTING/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2080,7 +2155,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../MAINTAINERS/" class="md-nav__link">
+      <a href="../../MAINTAINERS/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2101,7 +2176,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../CODE_OF_CONDUCT/" class="md-nav__link">
+      <a href="../../CODE_OF_CONDUCT/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2122,7 +2197,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../SECURITY/" class="md-nav__link">
+      <a href="../../SECURITY/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2143,7 +2218,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../PUBLISHING/" class="md-nav__link">
+      <a href="../../PUBLISHING/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2161,30 +2236,10 @@
                 
   
   
-    
   
   
-  
-    <li class="md-nav__item md-nav__item--active">
-      
-      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
-      
-      
-        
-      
-      
-        <label class="md-nav__link md-nav__link--active" for="__toc">
-          
-  
-  <span class="md-ellipsis">
-    Updating the ACA-Py ReadTheDocs Site
-  </span>
-  
-
-          <span class="md-nav__icon md-icon"></span>
-        </label>
-      
-      <a href="./" class="md-nav__link md-nav__link--active">
+    <li class="md-nav__item">
+      <a href="../../UpdateRTD/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -2193,95 +2248,6 @@
   
 
       </a>
-      
-        
-
-<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
-  
-  
-  
-    
-  
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#generating-aca-py-read-the-docs-rtd-documentation" class="md-nav__link">
-    <span class="md-ellipsis">
-      Generating ACA-Py Read The Docs (RTD) documentation
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Generating ACA-Py Read The Docs (RTD) documentation">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#before-you-start" class="md-nav__link">
-    <span class="md-ellipsis">
-      Before you start
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#generate-module-files" class="md-nav__link">
-    <span class="md-ellipsis">
-      Generate Module Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reviewing-the-files-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reviewing the files locally
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#look-for-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Look for Errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checking-for-missing-modules" class="md-nav__link">
-    <span class="md-ellipsis">
-      Checking for missing modules
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#updating-the-readthedocsorg-site" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updating the readthedocs.org site
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
-  
-</li>
-      
-    </ul>
-  
-</nav>
-      
     </li>
   
 
@@ -2321,64 +2287,28 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#generating-aca-py-read-the-docs-rtd-documentation" class="md-nav__link">
+  <a href="#development-and-testing" class="md-nav__link">
     <span class="md-ellipsis">
-      Generating ACA-Py Read The Docs (RTD) documentation
+      Development and Testing
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Generating ACA-Py Read The Docs (RTD) documentation">
+    <nav class="md-nav" aria-label="Development and Testing">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#before-you-start" class="md-nav__link">
+  <a href="#developer-setup" class="md-nav__link">
     <span class="md-ellipsis">
-      Before you start
+      Developer setup
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#generate-module-files" class="md-nav__link">
+  <a href="#testing" class="md-nav__link">
     <span class="md-ellipsis">
-      Generate Module Files
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#reviewing-the-files-locally" class="md-nav__link">
-    <span class="md-ellipsis">
-      Reviewing the files locally
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#look-for-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      Look for Errors
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#checking-for-missing-modules" class="md-nav__link">
-    <span class="md-ellipsis">
-      Checking for missing modules
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#updating-the-readthedocsorg-site" class="md-nav__link">
-    <span class="md-ellipsis">
-      Updating the readthedocs.org site
+      Testing
     </span>
   </a>
   
@@ -2407,53 +2337,20 @@
   
 
 
-<h1 id="managing-aries-cloud-agent-python-read-the-docs-documentation">Managing Aries Cloud Agent Python <code>Read The Docs</code> Documentation<a class="headerlink" href="#managing-aries-cloud-agent-python-read-the-docs-documentation" title="Permanent link">&para;</a></h1>
-<p>This document describes how to maintain the <code>Read The Docs</code> documentation that
-is generated from the ACA-Py code base. As the structure of the ACA-Py code
-evolves, the RTD files need to be regenerated and possibly updated, as described here.</p>
-<h2 id="generating-aca-py-read-the-docs-rtd-documentation">Generating ACA-Py Read The Docs (RTD) documentation<a class="headerlink" href="#generating-aca-py-read-the-docs-rtd-documentation" title="Permanent link">&para;</a></h2>
-<h3 id="before-you-start">Before you start<a class="headerlink" href="#before-you-start" title="Permanent link">&para;</a></h3>
-<p>To test generate and view the RTD documentation locally, you must install <a href="https://www.sphinx-doc.org/en/master/">Sphinx</a> and the
-<a href="https://pypi.org/project/sphinx-rtd-theme/">Sphinx RTD theme</a>. Follow the instructions on the respective pages to install
-and verify the installation on your system.</p>
-<h3 id="generate-module-files">Generate Module Files<a class="headerlink" href="#generate-module-files" title="Permanent link">&para;</a></h3>
-<p>To rebuild the project and settings from scratch (you'll need to move the generated index file up a level):</p>
-<p><code>rm -rf generated; sphinx-apidoc -f -M -o  ./generated ../aries_cloudagent/ $(find ../aries_cloudagent/ -name '*tests*')</code></p>
-<p>Note that the <code>find</code> command that is used to exclude any of the <code>test</code> python files from the RTD documentation.</p>
-<p>Check the <code>git status</code> in your repo to see if the generator updates, adds or removes any existing RTD modules.</p>
-<h3 id="reviewing-the-files-locally">Reviewing the files locally<a class="headerlink" href="#reviewing-the-files-locally" title="Permanent link">&para;</a></h3>
-<p>To auto-generate the module documentation locally run:</p>
-<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>sphinx-build<span class="w"> </span>-b<span class="w"> </span>html<span class="w"> </span>-a<span class="w"> </span>-E<span class="w"> </span>-c<span class="w"> </span>./<span class="w"> </span>./<span class="w"> </span>./_build
+<h1 id="bbs-signatures-support">BBS Signatures Support<a class="headerlink" href="#bbs-signatures-support" title="Permanent link">&para;</a></h1>
+<p>ACA-Py has supported BBS Signatures for some time. However, the dependency that is used (<code>bbs</code>) does not support the ARM architecture, and its inclusion in the default ACA-Py artifacts mean that developers using ARM-based hardware (such as Apple M1 Macs or later) cannot run ACA-Py "out-of-the-box". We feel that providing a better developer experience by supporting the ARM architecture is more important than BBS Signature support at this time. As such, we have removed the BBS dependency from the base ACA-Py artifacts and made it an add-on that those using ACA-Py with BBS must take extra steps to build their own artifacts. This file describes how to do those extra steps.</p>
+<p>Regarding future support for BBS Signatures in ACA-Py. There is currently a lot of work going on in developing implementations and BBS-based Verifiable Credential standards. However, at the time of this release, there is not an obvious approach to an implementation to use in ACA-Py that includes ARM support. As a result, we will hold off on updating the BBS Signatures support in ACA-Py until the standards and path forward clarify. In the meantime, maintainers of ACA-Py plan to continue to do all we can to push for newer and better ZKP-based Verifiable Credential standards.</p>
+<p>If you require BBS for your deployment an optional "extended" ACA-Py image has been released (<code>aries-cloudagent-bbs</code>) that includes BBS, with the caveat that it will very likely not install on ARM architecture.</p>
+<h2 id="development-and-testing">Development and Testing<a class="headerlink" href="#development-and-testing" title="Permanent link">&para;</a></h2>
+<h3 id="developer-setup">Developer setup<a class="headerlink" href="#developer-setup" title="Permanent link">&para;</a></h3>
+<p>If you are a contributor or are developing using a local build of ACA-Py and need BBS, the easiest way to include it is to install the optional dependency <code>bbs</code> with <code>poetry</code> (again with the caveat that it will very likely not install on ARM architecture). The <code>--all-extras</code> flag will install the <code>bbs</code> optional dependency in ACA-Py:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-0-1" name="__codelineno-0-1" href="#__codelineno-0-1"></a>poetry<span class="w"> </span>install<span class="w"> </span>--all-extras
 </code></pre></div>
-<p>Once generated, go into the <code>_build</code> folder and open <code>index.html</code> in a browser. Note that the <code>_build</code> is
-<code>.gitignore</code>'d and so will not be part of a git push.</p>
-<h3 id="look-for-errors">Look for Errors<a class="headerlink" href="#look-for-errors" title="Permanent link">&para;</a></h3>
-<p>This is the hard part; looking for errors in docstrings added by devs. Some tips:</p>
-<ul>
-<li>missing imports (<code>No module named 'async_timeout'</code>) can be solved by adding the module to the
-list of <code>autodoc_mock_imports</code> in the <code>conf.py</code> file in the ACA-Py <code>docs</code> folder.</li>
-<li>Ignore any errors in .md files</li>
-<li>Ignore the warnings about including <code>docs/README.md</code></li>
-<li>Ignore an dist-package errors</li>
-</ul>
-<p>Other than that, please investigate and fix things that you find. If there are fixes, it's usually
-to adhere to the rules around processing docstrings, and especially around JSON samples.</p>
-<h3 id="checking-for-missing-modules">Checking for missing modules<a class="headerlink" href="#checking-for-missing-modules" title="Permanent link">&para;</a></h3>
-<p>The file <code>index.rst</code> in the ACA-Py <code>docs</code> folder drive the RTD generation. It picks up all the modules
-in the source code, starting from the root <code>../aries_cloudagent</code> folder. However, some modules
-are not picked up automatically from the root and have to be manually added to <code>index.rst</code>. To do that:</p>
-<ul>
-<li>Get a list of all generated modules by running: <code>ls generated | grep "aries_cloudagent.[a-z]*.rst"</code></li>
-<li>Compare that list with the modules listed in the "Subpackages" section of the left side menu in your browser, including any listed below the "Submodules".</li>
-</ul>
-<p>If any are missing, you likely need to add them to the <code>index.rst</code> file in the <code>toctree</code> section of the file.
-You will see there are already several instances of that, notably "connections" and "protocols".</p>
-<h3 id="updating-the-readthedocsorg-site">Updating the <a href="https://readthedocs.org">readthedocs.org</a> site<a class="headerlink" href="#updating-the-readthedocsorg-site" title="Permanent link">&para;</a></h3>
-<p>The RTD documentation is <strong>not</strong> currently auto-generated, so a manual re-generation of the documentation
-is still required.</p>
-<blockquote>
-<p>TODO: Automate this when new tags are applied to the repository.</p>
-</blockquote>
+<h3 id="testing">Testing<a class="headerlink" href="#testing" title="Permanent link">&para;</a></h3>
+<p>WARNNG: if you do NOT have <code>bbs</code> installed you should exclude the BBS specific integration tests from running with the tag <code>~@BBS</code> otherwise they will fail:</p>
+<div class="highlight"><pre><span></span><code><a id="__codelineno-1-1" name="__codelineno-1-1" href="#__codelineno-1-1"></a>./run_bdd<span class="w"> </span>-t<span class="w"> </span>~@BBS
+</code></pre></div>
+<p>See the <a href="../../testing/UnitTests/">Unit</a> and <a href="../../testing/INTEGRATION-TESTS/">Integration</a> testing docs for more information on how to run tests.</p>
 
 
 
@@ -2489,7 +2386,7 @@ is still required.</p>
       <nav class="md-footer__inner md-grid" aria-label="Footer" >
         
           
-          <a href="../PUBLISHING/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Publishing an ACA-Py Release">
+          <a href="../UpgradingACA-Py/" class="md-footer__link md-footer__link--prev" aria-label="Previous: Upgrading ACA-Py">
             <div class="md-footer__button md-icon">
               
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
@@ -2499,11 +2396,27 @@ is still required.</p>
                 Previous
               </span>
               <div class="md-ellipsis">
-                Publishing an ACA-Py Release
+                Upgrading ACA-Py
               </div>
             </div>
           </a>
         
+        
+          
+          <a href="../IndySDKtoAskarMigration/" class="md-footer__link md-footer__link--next" aria-label="Next: Indy SDK to Askar Migration">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              <div class="md-ellipsis">
+                Indy SDK to Askar Migration
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4Z"/></svg>
+            </div>
+          </a>
         
       </nav>
     
@@ -2530,10 +2443,10 @@ is still required.</p>
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "navigation.expand", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
+    <script id="__config" type="application/json">{"base": "../..", "features": ["content.code.copy", "navigation.expand", "navigation.footer", "navigation.instant", "navigation.tabs", "navigation.tabs.sticky", "navigation.top", "navigation.tracking", "toc.follow"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": {"provider": "mike"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
       
     
   </body>
